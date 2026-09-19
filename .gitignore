@@ -1,0 +1,11 @@
+node_modules/
+.next/
+out/
+coverage/
+*.tsbuildinfo
+.env*
+!.env.example
+
+# Large source PDFs are kept locally and are not needed to run the web demo.
+/ОВЗ/02 Презентация/Навигатор доступности.pdf
+/ОВЗ/02 Презентация/Старая версия/ОВЗ.pdf
