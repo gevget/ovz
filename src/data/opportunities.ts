@@ -60,7 +60,7 @@ export const opportunityCourses: OpportunityCourse[] = [
 ];
 
 const event = (base: Event & Pick<OpportunityEvent, "category" | "timeLabel" | "recommendationTags">): OpportunityEvent => base;
-const eventBase = { description: "Открытое demo-событие с понятной программой и доступными условиями.", accessibilitySummary: ["Вход без ступеней", "Тихая зона", "Помощь координатора"] };
+const eventBase = { description: "Открытое демо-событие с понятной программой и доступными условиями.", accessibilitySummary: ["Вход без ступеней", "Тихая зона", "Помощь координатора"] };
 export const opportunityEvents: OpportunityEvent[] = [
   event({ ...coreEvents[0], id: "event_cinema", category: "culture", timeLabel: "18:00–20:00", recommendationTags: ["кино"] }),
   event({ id: "event_design", organizationId: "org_access_lab", placeId: "place_library", title: "Встреча о доступном дизайне", dateLabel: "17 октября", timeLabel: "19:00", ...eventBase, status: "available", category: "learning", recommendationTags: ["дизайн"] }),

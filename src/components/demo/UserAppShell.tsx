@@ -12,7 +12,6 @@ import { Avatar } from "@/components/ui/Avatar";
 import { Badge } from "@/components/ui/Badge";
 import { AccessibilityMatch } from "@/components/demo/AccessibilityMatch";
 import { PlaceCard } from "@/components/demo/PlaceCard";
-import { BottomNavigation } from "@/components/demo/BottomNavigation";
 
 export function UserAppShell() {
   const router = useRouter();
@@ -41,14 +40,14 @@ export function UserAppShell() {
         </div>
       </header>
       <main className="app-scrollbar min-h-0 flex-1 overflow-y-auto px-5 py-5">
-        <div className="rounded-card bg-[#10233f] p-5 text-white">
+        <Card tone="inverse" className="p-5">
           <Badge className="bg-white/15 text-white">Ваш навигатор</Badge>
           <h2 className="mt-4 text-2xl font-bold leading-tight">Собираем путь целиком</h2>
-          <p className="mt-2 text-sm leading-6 text-white/75">Фундамент demo готов: пять зон продукта, общий профиль и единый shell приложения.</p>
-          <Link href={routes.user.map} className="mt-4 inline-flex min-h-11 items-center rounded-control bg-white px-4 text-sm font-bold text-[#10233f] hover:bg-white/90">
+          <p className="mt-2 text-sm leading-6 text-on-surface-inverse/75">Фундамент демо готов: пять зон продукта, общий профиль и единая оболочка приложения.</p>
+          <Link href={routes.user.map} className="mt-4 inline-flex min-h-11 items-center rounded-control bg-on-surface-inverse px-4 text-sm font-bold text-surface-inverse hover:bg-on-surface-inverse/90">
             Открыть карту
           </Link>
-        </div>
+        </Card>
 
         <Link href={routes.user.feed} className="mt-5 block rounded-card border border-primary/20 bg-primary-soft p-4 hover:bg-primary/10">
           <p className="text-xs font-semibold uppercase tracking-[0.08em] text-primary">Сообщество</p>
@@ -61,7 +60,7 @@ export function UserAppShell() {
               <p className="text-xs font-semibold uppercase tracking-[0.08em] text-muted">Пример продукта</p>
               <h2 id="foundation-title" className="mt-1 text-xl font-bold">Место рядом с вашим профилем</h2>
             </div>
-            <Badge>Demo-данные</Badge>
+            <Badge>Демо-данные</Badge>
           </div>
           <div className="mt-3"><PlaceCard place={featuredPlace} match={match} onOpen={() => router.push(routes.user.map)} /></div>
         </section>
@@ -82,7 +81,6 @@ export function UserAppShell() {
         </Card>
         <p className="mt-5 text-center text-xs leading-5 text-muted">Сценарии и детальная карта подключаются следующим этапом поверх этого shell.</p>
       </main>
-      <BottomNavigation />
     </div>
   );
 }

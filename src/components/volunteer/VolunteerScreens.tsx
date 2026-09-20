@@ -3,7 +3,7 @@
 import { useMemo, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { ArrowLeft, CheckCircle2, List, Map as MapIcon, MapPin, ShieldCheck } from "lucide-react";
+import { CheckCircle2, List, Map as MapIcon, MapPin, ShieldCheck } from "lucide-react";
 import { routes } from "@/lib/routes";
 import { cn } from "@/lib/cn";
 import { useDemoStore } from "@/store/demoStore";
@@ -17,9 +17,10 @@ import { Modal } from "@/components/ui/Modal";
 import { Toast } from "@/components/ui/Toast";
 import { CommunityScreen } from "@/components/social/SocialScreens";
 import { HelpRequestCard, HelpRequestDetail, HelpStatusTimeline, ActiveHelpCard, ImpactSummary, OnboardingStep, RequestFilters, VolunteerMap, VolunteerProfileCard, VolunteerSummary } from "@/components/volunteer/VolunteerComponents";
+import { AppScreenHeader } from "@/components/demo/AppScreenHeader";
 
 function VolunteerHeader({ title, backHref = routes.volunteer.home }: { title: string; backHref?: string }) {
-  return <header className="flex items-center gap-3 border-b border-border bg-surface px-5 pb-3 pt-8 max-md:pt-5"><Link href={backHref} aria-label="Назад" className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-control text-muted hover:bg-surface-soft"><ArrowLeft aria-hidden="true" className="h-5 w-5" /></Link><div className="min-w-0"><p className="text-xs font-semibold uppercase tracking-[0.08em] text-muted">Волонтёр</p><h1 className="truncate text-xl font-bold text-ink">{title}</h1></div></header>;
+  return <AppScreenHeader title={title} backHref={backHref} eyebrow="Волонтёр" />;
 }
 
 function ScrollMain({ children }: { children: React.ReactNode }) { return <main className="app-scrollbar min-h-0 flex-1 overflow-y-auto px-5 py-5">{children}</main>; }

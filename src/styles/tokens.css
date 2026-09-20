@@ -6,36 +6,148 @@
   --color-bg: 247 248 250;
   --color-surface: 255 255 255;
   --color-surface-2: 240 243 247;
+  --color-surface-elevated: 255 255 255;
+  --color-surface-overlay: 255 255 255;
   --color-text: 14 26 43;
   --color-text-muted: 101 115 134;
+  --color-text-subtle: 128 141 158;
   --color-primary: 41 110 242;
+  --color-primary-strong: 31 94 217;
   --color-primary-soft: 234 241 255;
+  --color-accent: 14 142 153;
+  --color-accent-soft: 229 247 246;
+  --color-warm: 214 121 55;
+  --color-warm-soft: 255 242 232;
   --color-success: 23 134 91;
+  --color-success-soft: 232 247 240;
   --color-warning: 166 106 0;
+  --color-warning-soft: 255 243 223;
   --color-danger: 201 58 58;
+  --color-danger-strong: 170 48 48;
+  --color-danger-soft: 255 240 240;
+  --color-info: 41 110 242;
+  --color-info-soft: 234 241 255;
+  --color-neutral: 101 115 134;
+  --color-neutral-soft: 240 243 247;
+  --color-violet: 106 92 255;
+  --color-violet-soft: 241 239 255;
+  --color-coral: 218 103 84;
+  --color-coral-soft: 255 239 235;
+  --color-rose: 190 78 116;
+  --color-rose-soft: 255 237 245;
+  --color-teal: 14 142 153;
+  --color-teal-soft: 229 247 246;
+  --color-surface-inverse: 16 35 63;
+  --color-on-surface-inverse: 255 255 255;
+  --color-on-surface-inverse-muted: 207 220 242;
+  --color-inverse-highlight: 39 65 101;
+  --color-surface-quiet: 250 251 252;
   --color-border: 223 229 236;
+  --color-border-strong: 193 202 213;
   --color-focus: 106 92 255;
+  --color-device: 26 36 51;
+  --color-map-bg: 234 241 238;
+  --color-map-road: 185 200 194;
+  --color-map-road-highlight: 248 251 249;
+  --color-map-secondary-road: 198 211 206;
+  --color-map-grid: 209 221 216;
+  --color-map-route: 41 110 242;
+  --space-gutter: clamp(1rem, 3vw, 2rem);
+  --space-content: clamp(1.125rem, 2vw, 1.5rem);
+  --space-inline-gap: 0.75rem;
+  --space-control-gap: 0.75rem;
+  --space-card-gap: 1rem;
+  --space-section-gap: clamp(2.5rem, 6vw, 5rem);
+  --radius-control: 0.875rem;
+  --radius-card: 1.25rem;
+  --radius-sheet: 1.75rem;
+  --radius-feature: 1.75rem;
 }
 
 .high-contrast {
   --color-bg: 255 255 255;
   --color-surface: 255 255 255;
   --color-surface-2: 238 238 238;
+  --color-surface-elevated: 255 255 255;
+  --color-surface-overlay: 255 255 255;
   --color-text: 0 0 0;
   --color-text-muted: 35 35 35;
+  --color-text-subtle: 35 35 35;
   --color-border: 20 20 20;
+  --color-border-strong: 0 0 0;
   --color-focus: 0 0 0;
+  --color-device: 0 0 0;
+  --color-surface-inverse: 0 0 0;
+  --color-on-surface-inverse: 255 255 255;
+  --color-info: 0 67 179;
+  --color-info-soft: 232 240 255;
+  --color-neutral: 35 35 35;
+  --color-neutral-soft: 238 238 238;
+  --color-violet: 48 32 160;
+  --color-violet-soft: 232 230 255;
+  --color-coral: 140 45 28;
+  --color-coral-soft: 255 229 223;
+  --color-rose: 126 35 73;
+  --color-rose-soft: 255 225 237;
+  --color-teal: 0 91 98;
+  --color-teal-soft: 222 248 247;
+  --color-on-surface-inverse-muted: 255 255 255;
+  --color-inverse-highlight: 55 55 55;
+  --color-surface-quiet: 248 248 248;
+  --color-map-bg: 242 242 242;
+  --color-map-road: 70 70 70;
+  --color-map-road-highlight: 255 255 255;
+  --color-map-secondary-road: 110 110 110;
+  --color-map-grid: 160 160 160;
+  --color-map-route: 0 67 179;
 }
 
 .theme-dark {
   --color-bg: 18 27 40;
   --color-surface: 28 39 56;
   --color-surface-2: 39 51 70;
+  --color-surface-elevated: 34 47 66;
+  --color-surface-overlay: 28 39 56;
   --color-text: 241 245 249;
   --color-text-muted: 179 192 210;
+  --color-text-subtle: 153 168 188;
   --color-border: 75 91 112;
+  --color-border-strong: 108 126 151;
   --color-primary-soft: 42 66 112;
+  --color-accent: 69 190 190;
+  --color-accent-soft: 27 73 76;
+  --color-warm: 245 164 101;
+  --color-warm-soft: 91 58 31;
+  --color-primary-strong: 74 139 255;
+  --color-success-soft: 31 78 61;
+  --color-warning-soft: 91 69 22;
+  --color-danger-soft: 91 36 36;
+  --color-danger-strong: 240 112 112;
+  --color-info: 116 163 255;
+  --color-info-soft: 42 66 112;
+  --color-neutral: 179 192 210;
+  --color-neutral-soft: 39 51 70;
+  --color-violet: 160 150 255;
+  --color-violet-soft: 56 51 105;
+  --color-coral: 255 146 126;
+  --color-coral-soft: 90 48 44;
+  --color-rose: 245 133 174;
+  --color-rose-soft: 86 43 63;
+  --color-teal: 69 190 190;
+  --color-teal-soft: 27 73 76;
+  --color-surface-inverse: 9 15 24;
+  --color-on-surface-inverse: 248 250 252;
+  --color-on-surface-inverse-muted: 199 211 230;
+  --color-inverse-highlight: 35 54 80;
+  --color-surface-quiet: 24 34 49;
+  --color-map-bg: 35 49 58;
+  --color-map-road: 97 119 119;
+  --color-map-road-highlight: 45 62 73;
+  --color-map-secondary-road: 81 104 104;
+  --color-map-grid: 71 94 96;
+  --color-map-route: 116 163 255;
   --color-focus: 160 150 255;
+  --color-device: 9 15 24;
 }
 
 .reduced-motion *,
@@ -61,6 +173,7 @@ body {
   color: rgb(var(--color-text));
   font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   text-rendering: optimizeLegibility;
+  line-height: 1.5;
 }
 
 button,
@@ -76,9 +189,23 @@ a {
   text-decoration: none;
 }
 
+img {
+  display: block;
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
 :focus-visible {
   outline: 3px solid rgb(var(--color-focus));
   outline-offset: 3px;
+}
+
+::selection {
+  background: rgb(var(--color-primary) / 0.18);
+  color: rgb(var(--color-text));
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -106,4 +233,115 @@ a {
     background: rgb(var(--color-border));
     border-radius: 999px;
   }
+
+  .page-container {
+    width: min(100% - 2 * var(--space-gutter), 1280px);
+    margin-inline: auto;
+  }
+
+  .page-section {
+    padding-block: var(--space-section-gap);
+  }
+
+  .surface-grid {
+    background-image: linear-gradient(rgb(var(--color-border) / 0.28) 1px, transparent 1px), linear-gradient(90deg, rgb(var(--color-border) / 0.28) 1px, transparent 1px);
+    background-size: 32px 32px;
+  }
+
+  .surface-dots {
+    background-image: radial-gradient(rgb(var(--color-border) / 0.7) 1px, transparent 1px);
+    background-size: 18px 18px;
+  }
+
+  .landing-media {
+    box-shadow: 0 24px 60px -36px rgb(var(--color-text) / 0.42);
+  }
+
+  .surface-elevated {
+    background: rgb(var(--color-surface-elevated));
+    box-shadow: var(--shadow-sm);
+  }
+
+  .surface-glass {
+    background: rgb(var(--color-surface-overlay) / 0.82);
+    border: 1px solid rgb(var(--color-border) / 0.72);
+    box-shadow: var(--shadow-floating);
+    backdrop-filter: blur(18px) saturate(1.08);
+  }
+
+  .surface-quiet {
+    background: rgb(var(--color-surface-quiet));
+  }
+
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .layout-section {
+    display: grid;
+    gap: var(--space-section-gap);
+  }
+
+  .content-stack > :not([hidden]) ~ :not([hidden]) {
+    margin-top: 1rem;
+  }
+
+  .section-stack > :not([hidden]) ~ :not([hidden]) {
+    margin-top: 1.5rem;
+  }
+
+  .control-select {
+    min-height: 2.75rem;
+    appearance: none;
+    border: 1px solid rgb(var(--color-border));
+    border-radius: 14px;
+    background-color: rgb(var(--color-surface));
+    color: rgb(var(--color-text));
+    transition: border-color 160ms ease, box-shadow 160ms ease;
+  }
+
+  .control-select:focus {
+    border-color: rgb(var(--color-primary));
+    outline: none;
+    box-shadow: 0 0 0 4px rgb(var(--color-primary) / 0.1);
+  }
+
+  .control-select:hover {
+    border-color: rgb(var(--color-border-strong));
+  }
+
+  #showcase .space-y-28 > :not([hidden]) ~ :not([hidden]) {
+    margin-top: 4rem;
+  }
+
+  #showcase [data-landing-step] {
+    min-height: 18rem;
+  }
+
+  @media (min-width: 640px) {
+    .page-section {
+      padding-block: clamp(3.5rem, 7vw, 5rem);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .page-section {
+      padding-block: clamp(4rem, 7vw, 6rem);
+    }
+  }
+}
+
+:root {
+  --shadow-xs: 0 1px 2px rgb(var(--color-text) / 0.05);
+  --shadow-sm: 0 8px 24px -20px rgb(var(--color-text) / 0.34), 0 2px 6px rgb(var(--color-text) / 0.04);
+  --shadow-md: 0 16px 40px -26px rgb(var(--color-text) / 0.36), 0 4px 12px rgb(var(--color-text) / 0.05);
+  --shadow-floating: 0 18px 48px -28px rgb(var(--color-text) / 0.38), 0 6px 16px rgb(var(--color-text) / 0.08);
+  --shadow-device: 0 30px 80px -36px rgb(var(--color-text) / 0.42), 0 10px 24px rgb(var(--color-text) / 0.1);
+  --shadow-hero: 0 32px 90px -42px rgb(var(--color-primary) / 0.42), 0 14px 32px rgb(var(--color-text) / 0.08);
+  --shadow-inset: inset 0 1px 0 rgb(var(--color-on-surface-inverse) / 0.1), inset 0 -1px 0 rgb(var(--color-text) / 0.04);
+}
+
+.high-contrast .surface-glass {
+  background: rgb(var(--color-surface-overlay));
+  backdrop-filter: none;
 }

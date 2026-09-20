@@ -3,7 +3,7 @@ import "@/styles/tokens.css";
 
 export const metadata: Metadata = {
   title: "Навигатор доступности",
-  description: "Интерактивное demo цифрового навигатора доступности.",
+  description: "Интерактивное демо цифрового навигатора доступности.",
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {

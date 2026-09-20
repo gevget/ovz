@@ -8,7 +8,7 @@ import type { Role } from "@/types";
 import { routes } from "@/lib/routes";
 import { uiCopy } from "@/lib/ui-copy";
 import { Button } from "@/components/ui/Button";
-import { DemoToolbar } from "@/components/demo/DemoToolbar";
+import { DemoPresentationShell } from "@/components/demo/DemoPresentationShell";
 import { useDemoStore } from "@/store/demoStore";
 
 const roleCards: Array<{ role: Role; description: string; icon: typeof Accessibility }> = [
@@ -42,13 +42,12 @@ export function RoleSelect() {
   };
 
   return (
-    <div className="min-h-screen bg-canvas">
-      <DemoToolbar />
-      <main className="mx-auto flex min-h-[calc(100vh-88px)] w-full max-w-[980px] flex-col justify-center px-4 pb-12 pt-4 lg:px-8">
+    <DemoPresentationShell title="Выбор роли">
+      <div className="flex min-h-full flex-col justify-center py-4">
         <div className="max-w-2xl">
-          <p className="text-sm font-bold uppercase tracking-[0.12em] text-primary">Интерактивное demo</p>
+          <p className="text-sm font-bold uppercase tracking-[0.12em] text-primary">Интерактивное демо</p>
           <h1 className="mt-3 text-4xl font-bold tracking-[-0.04em] text-ink sm:text-5xl">Выберите роль</h1>
-          <p className="mt-4 max-w-xl text-base leading-7 text-muted">Посмотрите, как одна система связывает пользователя, волонтёра, партнёра и администратора на общих demo-данных.</p>
+          <p className="mt-4 max-w-xl text-base leading-7 text-muted">Посмотрите, как одна система связывает пользователя, волонтёра, партнёра и администратора на общих тестовых данных.</p>
         </div>
         <div className="mt-8 grid gap-3 sm:grid-cols-2">
           {roleCards.map(({ role, description, icon: Icon }) => {
@@ -57,7 +56,7 @@ export function RoleSelect() {
               <button
                 key={role}
                 type="button"
-                className={`rounded-card border p-5 text-left transition-colors ${selected ? "border-primary bg-primary-soft" : "border-border bg-surface hover:border-primary/50"}`}
+                className={`rounded-card border p-5 text-left transition-[border-color,background-color,box-shadow,transform] hover:-translate-y-px hover:shadow-card ${selected ? "border-primary bg-primary-soft shadow-card" : "border-border bg-surface hover:border-primary/50"}`}
                 aria-pressed={selected}
                 onClick={() => setSelectedRole(role)}
               >
@@ -72,8 +71,8 @@ export function RoleSelect() {
           <Button onClick={continueToDemo}>Продолжить как {uiCopy.role[selectedRole].toLowerCase()}</Button>
           <Link href="/" className="inline-flex min-h-11 items-center rounded-control px-4 text-sm font-semibold text-muted hover:bg-surface-soft hover:text-ink">Вернуться на сайт</Link>
         </div>
-        <p className="mt-8 max-w-xl text-xs leading-5 text-muted">Demo работает на локальных тестовых данных. Роль можно сменить в панели сверху, не теряя общий state.</p>
-      </main>
-    </div>
+        <p className="mt-8 max-w-xl text-xs leading-5 text-muted">Демонстрация работает на локальных тестовых данных. Роль можно сменить в панели сверху, не теряя общий контекст.</p>
+      </div>
+    </DemoPresentationShell>
   );
 }

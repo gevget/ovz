@@ -26,6 +26,16 @@ export function DemoToolbar() {
   const highContrast = useDemoStore((state) => state.settings.highContrast);
   const textScale = useDemoStore((state) => state.settings.textScale);
   const actions = useDemoStore((state) => state.actions);
+  const routeRole: Role | null = pathname.startsWith("/demo/admin")
+    ? "admin"
+    : pathname.startsWith("/demo/partner")
+      ? "partner"
+      : pathname.startsWith("/demo/volunteer")
+        ? "volunteer"
+        : pathname.startsWith("/demo/user")
+          ? "user"
+          : null;
+  const activeRole = routeRole ?? role;
 
   const switchRole = (nextRole: Role) => {
     actions.setRole(nextRole);
@@ -33,17 +43,17 @@ export function DemoToolbar() {
   };
 
   return (
-    <header className="mx-auto flex w-full max-w-[1180px] flex-wrap items-center justify-between gap-3 px-4 py-4 lg:px-8">
+    <header className="sticky top-0 z-30 mx-auto flex w-full max-w-[1180px] flex-wrap items-center justify-between gap-3 border-b border-border/70 bg-canvas/92 px-4 py-3 backdrop-blur-xl lg:px-8">
       <div className="flex items-center gap-3">
         <Link href="/" className="text-sm font-bold tracking-[-0.02em] text-ink">Навигатор доступности</Link>
-        <span className="rounded-full bg-primary-soft px-2 py-1 text-[13px] font-bold uppercase tracking-[0.12em] text-primary">Demo</span>
+        <span className="rounded-full bg-primary-soft px-2 py-1 text-[13px] font-bold uppercase tracking-[0.12em] text-primary">Демо</span>
       </div>
       <div className="flex flex-wrap items-center gap-2">
         <label className="relative">
           <span className="sr-only">Выбрать роль</span>
           <select
-            className="min-h-11 appearance-none rounded-control border border-border bg-surface py-2 pl-3 pr-9 text-sm font-semibold text-ink"
-            value={role}
+            className="control-select py-2 pl-3 pr-9 text-sm font-semibold"
+            value={activeRole}
             onChange={(event) => switchRole(event.target.value as Role)}
             aria-label="Выбрать роль"
           >
@@ -61,7 +71,7 @@ export function DemoToolbar() {
           <Eye aria-hidden="true" className="h-4 w-4" />
           <span className="hidden sm:inline">Доступность</span>
         </Button>
-        <Link href={routes.demoScenarios} className="inline-flex min-h-10 items-center gap-2 rounded-control border border-border bg-surface px-2 text-sm font-semibold text-ink hover:bg-surface-soft" aria-label="Открыть сценарии" title="Сценарии">
+        <Link href={routes.demoScenarios} className="inline-flex min-h-10 items-center gap-2 rounded-control border border-border bg-surface-elevated px-2 text-sm font-semibold text-ink hover:border-border-strong hover:bg-surface-soft" aria-label="Открыть сценарии" title="Сценарии">
           <ListChecks aria-hidden="true" className="h-4 w-4" />
           <span className="hidden sm:inline">Сценарии</span>
         </Link>
@@ -71,7 +81,7 @@ export function DemoToolbar() {
           aria-label="Размер текста"
           value={textScale}
           onChange={(event) => actions.patchSettings({ textScale: Number(event.target.value) as 1 | 1.25 | 1.5 })}
-          className="min-h-10 rounded-control border border-border bg-surface px-2 text-xs font-semibold text-ink"
+          className="control-select px-2 text-xs font-semibold"
         >
           <option value="1">100%</option>
           <option value="1.25">125%</option>

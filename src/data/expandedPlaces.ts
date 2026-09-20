@@ -103,7 +103,7 @@ export const expandedPlaces: Place[] = [
     },
     rating: 4.1,
     images: ["/assets/places/place-mfc-cover.webp"],
-    description: "Demo-объект, по которому нужно обновить данные доступности.",
+    description: "Демо-объект, по которому нужно обновить данные доступности.",
   },
   {
     id: "place_school_kontur",

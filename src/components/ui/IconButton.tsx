@@ -6,7 +6,7 @@ export function IconButton({ className, ...props }: ButtonHTMLAttributes<HTMLBut
     <button
       type="button"
       className={cn(
-        "inline-flex h-11 w-11 items-center justify-center rounded-control border border-border bg-surface text-ink transition-colors hover:bg-surface-soft",
+        "inline-flex h-11 w-11 items-center justify-center rounded-control border border-border bg-surface-elevated text-ink transition-[background-color,border-color,box-shadow,transform] hover:-translate-y-px hover:border-border-strong hover:bg-surface-soft hover:shadow-sm active:translate-y-0 focus-visible:ring-4 focus-visible:ring-focus/20 disabled:cursor-not-allowed disabled:opacity-50",
         className,
       )}
       {...props}

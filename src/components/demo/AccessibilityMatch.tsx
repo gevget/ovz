@@ -10,10 +10,10 @@ export function AccessibilityMatch({ result, compact = false }: { result: Access
     <Card className={compact ? "p-3" : "p-4"}>
       <div className="flex items-start justify-between gap-3">
         <div>
-          <p className="text-xs font-semibold uppercase tracking-[0.08em] text-muted">Accessibility Match</p>
+          <p className="text-xs font-semibold uppercase tracking-[0.08em] text-muted">Персональная доступность</p>
           <p className="mt-1 text-lg font-bold text-ink">{result.score}% подходит вам</p>
         </div>
-        <Badge className={result.criticalMismatch ? "bg-[#fff3df] text-warning" : "bg-[#e8f7f0] text-success"}>
+        <Badge className={result.criticalMismatch ? "bg-warning-soft text-warning" : "bg-success-soft text-success"}>
           {result.criticalMismatch ? <AlertTriangle aria-hidden="true" className="mr-1 h-3.5 w-3.5" /> : <CheckCircle2 aria-hidden="true" className="mr-1 h-3.5 w-3.5" />}
           {result.label}
         </Badge>

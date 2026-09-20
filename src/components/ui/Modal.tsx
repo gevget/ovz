@@ -1,9 +1,9 @@
 "use client";
 
-import { X } from "lucide-react";
 import { useEffect, useId, useRef } from "react";
 import type { ReactNode } from "react";
 import { IconButton } from "@/components/ui/IconButton";
+import { AppIcon } from "@/components/ui/AppIcon";
 import { cn } from "@/lib/cn";
 
 export function Modal({ open, title, children, onClose, className, align = "center" }: { open: boolean; title: string; children: ReactNode; onClose: () => void; className?: string; align?: "center" | "bottom" }) {
@@ -41,11 +41,11 @@ export function Modal({ open, title, children, onClose, className, align = "cent
   if (!open) return null;
 
   return (
-    <div className={`fixed inset-0 z-50 flex justify-center bg-[#0e1a2b]/45 p-4 ${align === "bottom" ? "items-end" : "items-center"}`} onMouseDown={(event) => { if (event.target === event.currentTarget) onClose(); }}>
-      <div ref={dialogRef} role="dialog" aria-modal="true" aria-labelledby={titleId} className={cn("max-h-[min(720px,calc(100dvh-32px))] w-full max-w-lg overflow-y-auto rounded-sheet border border-border bg-surface p-5 shadow-device", className)}>
+    <div className={`fixed inset-0 z-50 flex justify-center bg-surface-inverse/45 p-4 backdrop-blur-[2px] ${align === "bottom" ? "items-end" : "items-center"}`} onMouseDown={(event) => { if (event.target === event.currentTarget) onClose(); }}>
+      <div ref={dialogRef} role="dialog" aria-modal="true" aria-labelledby={titleId} className={cn("max-h-[min(720px,calc(100dvh-32px))] w-full max-w-lg overflow-y-auto rounded-sheet border border-border bg-surface-elevated p-5 shadow-floating", className)}>
         <div className="flex items-start justify-between gap-4">
           <h2 id={titleId} className="text-xl font-bold text-ink">{title}</h2>
-          <IconButton aria-label="Закрыть" onClick={onClose}><X aria-hidden="true" className="h-5 w-5" /></IconButton>
+          <IconButton aria-label="Закрыть" onClick={onClose}><AppIcon name="X" className="h-5 w-5" /></IconButton>
         </div>
         <div className="mt-5">{children}</div>
       </div>

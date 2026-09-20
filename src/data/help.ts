@@ -24,19 +24,19 @@ export const helpCategories: { id: HelpCategoryId; title: string; description: s
 
 const extraOrganizations: HelpOrganization[] = [
   { id: "org_new_stage", name: "Культурный центр «Новая сцена»", category: "culture", verified: true, description: "Культурная площадка с доступными форматами событий.", city: "Москва", services: ["События", "Сопровождение", "Тихая зона"], placeIds: ["place_theatre", "place_library"], specialistIds: ["specialist_irina"], articleIds: ["article_event_access"] },
-  { id: "org_job_center", name: "Центр инклюзивной занятости «Старт»", category: "employment", verified: true, description: "Demo-организация для поиска работы и карьерной навигации.", city: "Москва", services: ["Карьерная консультация", "Подбор вакансий", "Подготовка резюме"], placeIds: [], specialistIds: ["specialist_dmitry", "specialist_olga"], articleIds: ["article_job_conditions", "article_remote_interview"] },
+  { id: "org_job_center", name: "Центр инклюзивной занятости «Старт»", category: "employment", verified: true, description: "Тестовая организация для поиска работы и карьерной навигации.", city: "Москва", services: ["Карьерная консультация", "Подбор вакансий", "Подготовка резюме"], placeIds: [], specialistIds: ["specialist_dmitry", "specialist_olga"], articleIds: ["article_job_conditions", "article_remote_interview"] },
   { id: "org_psych_support", name: "Центр поддержки «Рядом»", category: "support", verified: true, description: "Психологическая поддержка и бережная навигация к следующим шагам.", city: "Москва", services: ["Психологическая консультация", "Группы поддержки"], placeIds: [], specialistIds: ["specialist_elena", "specialist_maria"], articleIds: ["article_first_question", "article_support_boundaries"] },
   { id: "org_legal_line", name: "Юридическая линия «Право рядом»", category: "legal", verified: true, description: "Информационные консультации по подготовке обращений.", city: "Москва", services: ["Разбор документов", "Подготовка вопроса", "Поиск официального источника"], placeIds: [], specialistIds: ["specialist_anna", "specialist_pavel"], articleIds: ["article_documents", "article_application"] },
   { id: "org_social_navigator", name: "Навигатор социальных сервисов", category: "social", verified: true, description: "Помогает понять, куда обратиться и какие сведения подготовить.", city: "Москва", services: ["Социальная навигация", "Список организаций", "Подготовка обращения"], placeIds: ["place_mfc"], specialistIds: ["specialist_svetlana", "specialist_roman"], articleIds: ["article_social_route", "article_official_sources"] },
   { id: "org_career_lab", name: "Лаборатория рабочего места «Точка»", category: "employment", verified: true, description: "Консультации о формате работы и адаптации рабочего места.", city: "Москва", services: ["Адаптация рабочего места", "Карьерная консультация"], placeIds: ["place_coworking"], specialistIds: ["specialist_dmitry"], articleIds: ["article_job_conditions"] },
-  { id: "org_city_transport", name: "Городская транспортная служба demo", category: "transport", verified: true, description: "Demo-профиль для навигации по поездкам и сообщениям о препятствиях.", city: "Москва", services: ["Навигация по поездке", "Доступный вход", "Сообщить о препятствии"], placeIds: ["place_station_demo"], specialistIds: [], articleIds: ["article_trip", "article_transfer"] },
+  { id: "org_city_transport", name: "Городская транспортная служба (демо)", category: "transport", verified: true, description: "Тестовый профиль для навигации по поездкам и сообщениям о препятствиях.", city: "Москва", services: ["Навигация по поездке", "Доступный вход", "Сообщить о препятствии"], placeIds: ["place_station_demo"], specialistIds: [], articleIds: ["article_trip", "article_transfer"] },
   { id: "org_family_center", name: "Центр поддержки близких", category: "family", verified: true, description: "Материалы о поддержке самостоятельности и совместном планировании.", city: "Москва", services: ["Консультация для близких", "Планирование поездки"], placeIds: [], specialistIds: ["specialist_maria"], articleIds: ["article_family_trip", "article_support_boundaries"] },
 ];
 
 export const helpOrganizations: HelpOrganization[] = [
   ...coreOrganizations.map((organization) => ({
     ...organization,
-    services: organization.id === "org_clinic_12" ? ["Медицинская навигация", "Запись на demo-время"] : ["Курсы", "Карьерная консультация"],
+    services: organization.id === "org_clinic_12" ? ["Медицинская навигация", "Запись на тестовое время"] : ["Курсы", "Карьерная консультация"],
     placeIds: organization.id === "org_clinic_12" ? ["place_clinic_12"] : ["place_school_kontur"],
     specialistIds: organization.id === "org_clinic_12" ? ["specialist_svetlana"] : ["specialist_dmitry"],
     articleIds: organization.id === "org_clinic_12" ? ["article_trip", "article_match"] : ["article_course_choice", "article_remote_interview"],
@@ -45,20 +45,42 @@ export const helpOrganizations: HelpOrganization[] = [
 ];
 
 export const helpSpecialists: HelpSpecialist[] = [
-  { id: "specialist_anna", organizationId: "org_legal_line", name: "Анна Белова", avatar: "АБ", category: "lawyer", verified: true, specialties: ["Социальные обращения", "Подготовка документов"], format: "online", nextSlotLabel: "Сегодня, 18:30", availabilityLabel: "Ближайшее demo-время: сегодня, 18:30", description: "Помогает сформулировать вопрос и подготовить список документов. Не заменяет официальную юридическую консультацию." },
-  { id: "specialist_pavel", organizationId: "org_legal_line", name: "Павел Мартынов", avatar: "ПМ", category: "lawyer", verified: true, specialties: ["Трудовые вопросы", "Доступная среда"], format: "hybrid", nextSlotLabel: "Завтра, 11:00", availabilityLabel: "Ближайшее demo-время: завтра, 11:00", description: "Помогает разобрать структуру обращения и найти официальный источник." },
-  { id: "specialist_elena", organizationId: "org_psych_support", name: "Елена Романова", avatar: "ЕР", category: "psychologist", verified: true, specialties: ["Тревога перед обращением", "Поддержка в изменениях"], format: "online", nextSlotLabel: "Сегодня, 20:00", availabilityLabel: "Ближайшее demo-время: сегодня, 20:00", description: "Бережно помогает определить ближайший посильный шаг и подготовиться к разговору." },
-  { id: "specialist_maria", organizationId: "org_family_center", name: "Мария Климова", avatar: "МК", category: "psychologist", verified: true, specialties: ["Поддержка близких", "Совместное планирование"], format: "hybrid", nextSlotLabel: "Пятница, 12:30", availabilityLabel: "Ближайшее demo-время: пятница, 12:30", description: "Работает с семейными сценариями поддержки и уважением самостоятельности." },
-  { id: "specialist_dmitry", organizationId: "org_job_center", name: "Дмитрий Орлов", avatar: "ДО", category: "career", verified: true, specialties: ["Поиск работы", "Адаптация рабочего места"], format: "online", nextSlotLabel: "Завтра, 10:30", availabilityLabel: "Ближайшее demo-время: завтра, 10:30", description: "Помогает выбрать формат поиска и подготовить разговор об условиях работы." },
-  { id: "specialist_olga", organizationId: "org_job_center", name: "Ольга Нестерова", avatar: "ОН", category: "career", verified: true, specialties: ["Резюме", "Удалённая работа"], format: "online", nextSlotLabel: "Суббота, 15:00", availabilityLabel: "Ближайшее demo-время: суббота, 15:00", description: "Разбирает опыт пользователя и переводит его в понятные пункты резюме." },
-  { id: "specialist_svetlana", organizationId: "org_social_navigator", name: "Светлана Ильина", avatar: "СИ", category: "social_navigator", verified: true, specialties: ["Социальные услуги", "Навигация по организациям"], format: "offline", nextSlotLabel: "Сегодня, 17:00", availabilityLabel: "Ближайшее demo-время: сегодня, 17:00", description: "Помогает выбрать организацию и подготовить вопросы к обращению." },
-  { id: "specialist_roman", organizationId: "org_social_navigator", name: "Роман Фёдоров", avatar: "РФ", category: "social_navigator", verified: true, specialties: ["МФЦ и заявления", "Подготовка сведений"], format: "hybrid", nextSlotLabel: "Понедельник, 09:30", availabilityLabel: "Ближайшее demo-время: понедельник, 09:30", description: "Объясняет следующий шаг простыми словами и отмечает, что нужно уточнить официально." },
+  { id: "specialist_anna", organizationId: "org_legal_line", name: "Анна Белова", avatar: "АБ", category: "lawyer", verified: true, specialties: ["Социальные обращения", "Подготовка документов"], format: "online", nextSlotLabel: "Сегодня, 18:30", availabilityLabel: "Ближайшее тестовое время: сегодня, 18:30", description: "Помогает сформулировать вопрос и подготовить список документов. Не заменяет официальную юридическую консультацию." },
+  { id: "specialist_pavel", organizationId: "org_legal_line", name: "Павел Мартынов", avatar: "ПМ", category: "lawyer", verified: true, specialties: ["Трудовые вопросы", "Доступная среда"], format: "hybrid", nextSlotLabel: "Завтра, 11:00", availabilityLabel: "Ближайшее тестовое время: завтра, 11:00", description: "Помогает разобрать структуру обращения и найти официальный источник." },
+  { id: "specialist_elena", organizationId: "org_psych_support", name: "Елена Романова", avatar: "ЕР", category: "psychologist", verified: true, specialties: ["Тревога перед обращением", "Поддержка в изменениях"], format: "online", nextSlotLabel: "Сегодня, 20:00", availabilityLabel: "Ближайшее тестовое время: сегодня, 20:00", description: "Бережно помогает определить ближайший посильный шаг и подготовиться к разговору." },
+  { id: "specialist_maria", organizationId: "org_family_center", name: "Мария Климова", avatar: "МК", category: "psychologist", verified: true, specialties: ["Поддержка близких", "Совместное планирование"], format: "hybrid", nextSlotLabel: "Пятница, 12:30", availabilityLabel: "Ближайшее тестовое время: пятница, 12:30", description: "Работает с семейными сценариями поддержки и уважением самостоятельности." },
+  { id: "specialist_dmitry", organizationId: "org_job_center", name: "Дмитрий Орлов", avatar: "ДО", category: "career", verified: true, specialties: ["Поиск работы", "Адаптация рабочего места"], format: "online", nextSlotLabel: "Завтра, 10:30", availabilityLabel: "Ближайшее тестовое время: завтра, 10:30", description: "Помогает выбрать формат поиска и подготовить разговор об условиях работы." },
+  { id: "specialist_olga", organizationId: "org_job_center", name: "Ольга Нестерова", avatar: "ОН", category: "career", verified: true, specialties: ["Резюме", "Удалённая работа"], format: "online", nextSlotLabel: "Суббота, 15:00", availabilityLabel: "Ближайшее тестовое время: суббота, 15:00", description: "Разбирает опыт пользователя и переводит его в понятные пункты резюме." },
+  { id: "specialist_svetlana", organizationId: "org_social_navigator", name: "Светлана Ильина", avatar: "СИ", category: "social_navigator", verified: true, specialties: ["Социальные услуги", "Навигация по организациям"], format: "offline", nextSlotLabel: "Сегодня, 17:00", availabilityLabel: "Ближайшее тестовое время: сегодня, 17:00", description: "Помогает выбрать организацию и подготовить вопросы к обращению." },
+  { id: "specialist_roman", organizationId: "org_social_navigator", name: "Роман Фёдоров", avatar: "РФ", category: "social_navigator", verified: true, specialties: ["МФЦ и заявления", "Подготовка сведений"], format: "hybrid", nextSlotLabel: "Понедельник, 09:30", availabilityLabel: "Ближайшее тестовое время: понедельник, 09:30", description: "Объясняет следующий шаг простыми словами и отмечает, что нужно уточнить официально." },
 ];
 
-const paragraph = (text: string): ArticleBlock => ({ type: "paragraph", text });
-const heading = (text: string): ArticleBlock => ({ type: "heading", text });
-const checklist = (items: string[]): ArticleBlock => ({ type: "checklist", items });
-const info = (title: string, text: string): ArticleBlock => ({ type: "info", title, text });
+const localizeHelpText = (text: string) => text
+  .replaceAll("Demo-организация", "тестовая организация")
+  .replaceAll("Demo-профиль", "тестовый профиль")
+  .replaceAll("Demo-инструкция", "демонстрационная инструкция")
+  .replaceAll("Demo-совет", "тестовый совет")
+  .replaceAll("Demo-материал", "демонстрационный материал")
+  .replaceAll("demo-время", "тестовое время")
+  .replaceAll("demo-оценка", "демонстрационная оценка")
+  .replaceAll("demo-поле", "демонстрационное поле")
+  .replaceAll("demo-сценарии", "демонстрационные сценарии")
+  .replaceAll("demo-state machine", "сценарий обработки состояния")
+  .replaceAll("Accessibility Match", "персональная оценка доступности")
+  .replaceAll("screen reader", "программой экранного доступа")
+  .replaceAll("relevant features", "подходящие условия")
+  .replaceAll("features", "условия")
+  .replaceAll("submitted", "созданный запрос")
+  .replaceAll("matching", "подбор сопровождающего")
+  .replaceAll("definitive legal advice", "окончательную юридическую консультацию")
+  .replaceAll("CTA", "следующему действию")
+  .replaceAll("В demo", "В демонстрации")
+  .replaceAll("demo не", "демонстрация не");
+
+const paragraph = (text: string): ArticleBlock => ({ type: "paragraph", text: localizeHelpText(text) });
+const heading = (text: string): ArticleBlock => ({ type: "heading", text: localizeHelpText(text) });
+const checklist = (items: string[]): ArticleBlock => ({ type: "checklist", items: items.map(localizeHelpText) });
+const info = (title: string, text: string): ArticleBlock => ({ type: "info", title: localizeHelpText(title), text: localizeHelpText(text) });
 
 const makeArticle = (args: {
   id: string;
@@ -76,15 +98,15 @@ const makeArticle = (args: {
   id: args.id,
   title: args.title,
   category: args.category,
-  summary: args.summary,
+  summary: localizeHelpText(args.summary),
   body: args.blocks.filter((block) => block.type === "paragraph").map((block) => block.text),
   contentMode: { normal: args.blocks, simple: args.simpleBlocks ?? args.blocks },
   relatedOrganizationIds: args.organizationIds,
   relatedSpecialistIds: args.specialistIds,
   relatedPlaceIds: args.placeIds,
   relatedArticleIds: args.articleIds,
-  nextAction: args.nextAction,
-  sourceNote: "Demo-инструкция. Для актуальных требований проверяйте официальные источники.",
+  nextAction: args.nextAction ? { ...args.nextAction, label: localizeHelpText(args.nextAction.label) } : undefined,
+  sourceNote: localizeHelpText("Демонстрационная инструкция. Для актуальных требований проверяйте официальные источники."),
 });
 
 export const helpArticles: HelpArticle[] = [
@@ -126,7 +148,7 @@ export const aiIntentExamples: { id: AiIntentId; label: string; sample: string }
   { id: "job", label: "Найти работу", sample: "Помоги найти работу" },
   { id: "course", label: "Найти курс", sample: "Хочу найти доступный курс" },
   { id: "event", label: "Найти мероприятие", sample: "Куда сходить на мероприятие" },
-  { id: "match", label: "Объяснить Accessibility Match", sample: "Что означает Accessibility Match?" },
+  { id: "match", label: "Объяснить персональную оценку доступности", sample: "Что означает персональная оценка доступности?" },
   { id: "organization", label: "Найти организацию", sample: "Найди организацию, которая поможет" },
 ];
 

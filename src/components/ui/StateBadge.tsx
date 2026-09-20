@@ -5,14 +5,14 @@ import { cn } from "@/lib/cn";
 export type StateBadgeVariant = "verified" | "pending" | "stale" | "partial" | "warning" | "unknown" | "demo" | "success";
 
 const stateConfig: Record<StateBadgeVariant, { label: string; className: string; icon: typeof BadgeCheck }> = {
-  verified: { label: "Проверено", className: "bg-[#e8f7f0] text-success", icon: BadgeCheck },
-  pending: { label: "На проверке", className: "bg-[#fff3df] text-warning", icon: Clock3 },
-  stale: { label: "Данные требуют проверки", className: "bg-[#fff3df] text-warning", icon: Clock3 },
-  partial: { label: "Частичная доступность", className: "bg-[#fff3df] text-warning", icon: Info },
-  warning: { label: "Есть ограничение", className: "bg-[#fff0f0] text-danger", icon: AlertTriangle },
+  verified: { label: "Проверено", className: "bg-success-soft text-success", icon: BadgeCheck },
+  pending: { label: "На проверке", className: "bg-warning-soft text-warning", icon: Clock3 },
+  stale: { label: "Данные требуют проверки", className: "bg-warning-soft text-warning", icon: Clock3 },
+  partial: { label: "Частичная доступность", className: "bg-warning-soft text-warning", icon: Info },
+  warning: { label: "Есть ограничение", className: "bg-danger-soft text-danger", icon: AlertTriangle },
   unknown: { label: "Нет данных", className: "bg-surface-soft text-muted", icon: CircleHelp },
-  demo: { label: "Demo-данные", className: "bg-primary-soft text-primary", icon: ShieldCheck },
-  success: { label: "Обновлено", className: "bg-[#e8f7f0] text-success", icon: BadgeCheck },
+  demo: { label: "Демо-данные", className: "bg-primary-soft text-primary", icon: ShieldCheck },
+  success: { label: "Обновлено", className: "bg-success-soft text-success", icon: BadgeCheck },
 };
 
 export function StateBadge({ variant, label }: { variant: StateBadgeVariant; label?: string }) {

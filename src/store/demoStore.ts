@@ -161,6 +161,21 @@ const initialState = {
   selectedRouteId: null as string | null,
 };
 
+function migrateDemoState(persistedState: unknown): Partial<DemoState> {
+  if (!persistedState || typeof persistedState !== "object") return {};
+  const persisted = persistedState as Partial<DemoState>;
+  return {
+    ...persisted,
+    places: persisted.places?.map((place) => ({
+      ...place,
+      address: place.address.replaceAll("Демо-адрес", "Тестовый адрес"),
+      description: place.description
+        ?.replaceAll("Демо-карточка", "Тестовая карточка")
+        .replaceAll("Демо-объект", "Тестовый объект"),
+    })),
+  };
+}
+
 export const useDemoStore = create<DemoState>()(
   persist(
     (set) => ({
@@ -535,6 +550,8 @@ export const useDemoStore = create<DemoState>()(
         adminHistory: state.adminHistory,
         platformVerificationStatuses: state.platformVerificationStatuses,
       }),
+      version: 2,
+      migrate: migrateDemoState,
     },
   ),
 );

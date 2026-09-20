@@ -1,0 +1,118 @@
+import {
+  Accessibility,
+  AlertTriangle,
+  ArrowLeft,
+  ArrowRight,
+  ArrowUpRight,
+  BadgeCheck,
+  BarChart3,
+  Bell,
+  BookOpen,
+  BriefcaseBusiness,
+  Building2,
+  BusFront,
+  CalendarClock,
+  CalendarDays,
+  Camera,
+  CarFront,
+  Check,
+  CheckCircle2,
+  ChevronDown,
+  ChevronRight,
+  CircleCheck,
+  CircleHelp,
+  ClipboardList,
+  Clock3,
+  ExternalLink,
+  Eye,
+  FileCheck2,
+  FileText,
+  Files,
+  Filter,
+  Flag,
+  Footprints,
+  GraduationCap,
+  HandHelping,
+  Headphones,
+  Heart,
+  HeartHandshake,
+  HelpCircle,
+  History,
+  Home,
+  Inbox,
+  Info,
+  LayoutDashboard,
+  Link2,
+  List,
+  ListChecks,
+  LocateFixed,
+  LockKeyhole,
+  Map as MapIcon,
+  MapPin,
+  MapPinned,
+  Menu,
+  MessageCircle,
+  MessageCircleQuestion,
+  MessageSquareWarning,
+  Minus,
+  MoreHorizontal,
+  Navigation,
+  Phone,
+  Plus,
+  RotateCcw,
+  Route as RouteIcon,
+  Search,
+  Send,
+  Settings2,
+  Share2,
+  ShieldAlert,
+  ShieldCheck,
+  SlidersHorizontal,
+  Sparkles,
+  Star,
+  Timer,
+  UserRound,
+  Users,
+  Volume2,
+  WalletCards,
+  X,
+  type LucideIcon,
+  type LucideProps,
+} from "lucide-react";
+
+export const appIconNames = [
+  "Accessibility", "AlertTriangle", "ArrowLeft", "ArrowRight", "ArrowUpRight", "BadgeCheck", "BarChart3", "Bell",
+  "BookOpen", "BriefcaseBusiness", "Building2", "BusFront", "CalendarClock", "CalendarDays", "Camera", "CarFront",
+  "Check", "CheckCircle2", "ChevronDown", "ChevronRight", "CircleCheck", "CircleHelp", "ClipboardList", "Clock3",
+  "ExternalLink", "Eye", "FileCheck2", "FileText", "Files", "Filter", "Flag", "Footprints", "GraduationCap",
+  "HandHelping", "Headphones", "Heart", "HeartHandshake", "HelpCircle", "History", "Home", "Inbox", "Info",
+  "LayoutDashboard", "Link2", "List", "ListChecks", "LocateFixed", "LockKeyhole", "Map", "MapPin", "MapPinned",
+  "Menu", "MessageCircle", "MessageCircleQuestion", "MessageSquareWarning", "Minus", "MoreHorizontal", "Navigation",
+  "Phone", "Plus", "RotateCcw", "Route", "Search", "Send", "Settings2", "Share2", "ShieldAlert", "ShieldCheck",
+  "SlidersHorizontal", "Sparkles", "Star", "Timer", "UserRound", "Users", "Volume2", "WalletCards", "X",
+] as const;
+
+export type AppIconName = typeof appIconNames[number];
+
+const iconMap: Record<AppIconName, LucideIcon> = {
+  Accessibility, AlertTriangle, ArrowLeft, ArrowRight, ArrowUpRight, BadgeCheck, BarChart3, Bell, BookOpen,
+  BriefcaseBusiness, Building2, BusFront, CalendarClock, CalendarDays, Camera, CarFront, Check, CheckCircle2,
+  ChevronDown, ChevronRight, CircleCheck, CircleHelp, ClipboardList, Clock3, ExternalLink, Eye, FileCheck2, FileText,
+  Files, Filter, Flag, Footprints, GraduationCap, HandHelping, Headphones, Heart, HeartHandshake, HelpCircle, History,
+  Home, Inbox, Info, LayoutDashboard, Link2, List, ListChecks, LocateFixed, LockKeyhole, Map: MapIcon, MapPin, MapPinned,
+  Menu, MessageCircle, MessageCircleQuestion, MessageSquareWarning, Minus, MoreHorizontal, Navigation, Phone, Plus,
+  RotateCcw, Route: RouteIcon, Search, Send, Settings2, Share2, ShieldAlert, ShieldCheck, SlidersHorizontal, Sparkles,
+  Star, Timer, UserRound, Users, Volume2, WalletCards, X,
+};
+
+type AppIconProps = {
+  name: AppIconName;
+  className?: string;
+  strokeWidth?: number;
+} & Omit<LucideProps, "className" | "ref" | "size" | "strokeWidth">;
+
+/** Semantic Lucide entry point used by shared navigation and future UI primitives. */
+export function AppIcon({ name, className, strokeWidth = 1.9, ...props }: AppIconProps) {
+  const Icon = iconMap[name];
+  return <Icon {...props} aria-hidden="true" className={className} strokeWidth={strokeWidth} />;
+}

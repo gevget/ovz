@@ -1,10 +1,10 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { cloneElement, isValidElement, useEffect, useMemo, useState } from "react";
 import type { ReactNode } from "react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-import { ArrowLeft, ArrowRight, Bot, CalendarClock, CheckCircle2, HandHelping, Send, ShieldAlert, Sparkles } from "lucide-react";
+import { ArrowRight, Bot, CalendarClock, CheckCircle2, HandHelping, Send, ShieldAlert, Sparkles } from "lucide-react";
 import { helpArticles, helpCategories, helpOrganizations, helpSpecialists, aiIntentExamples, bookingSlotsByOrganization } from "@/data/help";
 import { places } from "@/data/seed";
 import { volunteerProfiles } from "@/data/volunteer";
@@ -23,13 +23,45 @@ import { EmptyState } from "@/components/ui/EmptyState";
 import { Input } from "@/components/ui/Input";
 import { SearchBar } from "@/components/ui/SearchBar";
 import { Textarea } from "@/components/ui/Textarea";
+import { AppScreenHeader } from "@/components/demo/AppScreenHeader";
 
 function HelpHeader({ title = "Помощь", backHref = routes.user.home }: { title?: string; backHref?: string }) {
-  return <header className="flex items-center gap-3 border-b border-border bg-surface px-5 pb-3 pt-8 max-md:pt-5"><Link href={backHref} aria-label="Назад" className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-control text-muted hover:bg-surface-soft"><ArrowLeft aria-hidden="true" className="h-5 w-5" /></Link><div className="min-w-0"><p className="text-xs font-semibold uppercase tracking-[0.08em] text-muted">Навигатор</p><h1 className="truncate text-xl font-bold text-ink">{title}</h1></div></header>;
+  return <AppScreenHeader title={title} backHref={backHref} eyebrow="Навигатор" />;
+}
+
+function translateHelpText(text: string) {
+  return text
+    .replaceAll("AI-навигатор", "ИИ-навигатор")
+    .replaceAll("AI", "ИИ")
+    .replaceAll("demo-место", "тестовое место")
+    .replaceAll("demo-курсы", "тестовые курсы")
+    .replaceAll("demo-разделы", "разделы демонстрации")
+    .replaceAll("demo события", "тестовые события")
+    .replaceAll("demo-оценка", "демонстрационная оценка")
+    .replaceAll("Accessibility Match", "персональная оценка доступности")
+    .replaceAll("demo-вопроса", "тестовых вопросов")
+    .replaceAll("demo-материалов", "демонстрационных материалов")
+    .replaceAll("demo-профилей", "тестовых профилей")
+    .replaceAll("demo-запись", "тестовая запись")
+    .replaceAll("demo-времён", "тестовых времён")
+    .replaceAll("demo-время", "тестовое время")
+    .replaceAll("shared state", "общем состоянии")
+    .replaceAll("Map flow", "картой")
+    .replaceAll("Demo-контакт", "Тестовый контакт")
+    .replaceAll("demo", "демо")
+    .replaceAll("placeholder", "пример вложения");
+}
+
+function localizeHelpNode(node: ReactNode): ReactNode {
+  if (typeof node === "string") return translateHelpText(node);
+  if (Array.isArray(node)) return node.map((item) => localizeHelpNode(item));
+  if (!isValidElement(node)) return node;
+  const children = (node.props as { children?: ReactNode }).children;
+  return cloneElement(node, undefined, localizeHelpNode(children));
 }
 
 export function HelpMain({ children }: { children: ReactNode }) {
-  return <main className="app-scrollbar min-h-0 flex-1 overflow-y-auto px-5 py-5">{children}</main>;
+  return <main className="app-scrollbar min-h-0 flex-1 overflow-y-auto px-5 py-5">{localizeHelpNode(children)}</main>;
 }
 
 export function HelpHomeScreen() {
@@ -61,13 +93,13 @@ function intentFromText(text: string): AiIntentId | null {
 
 function AIResponse({ intent }: { intent: AiIntentId }) {
   const userNeeds = useDemoStore((state) => state.userNeeds);
-  if (intent === "clinic") { const clinic = places.find((place) => place.id === "place_clinic_12"); if (!clinic) return null; const match = calculateAccessibilityMatch(userNeeds, clinic.accessibility); return <><p>Для вас важны условия из профиля. Нашла demo-место с Accessibility Match {match.score}%.</p><div className="mt-3"><PlaceCard place={clinic} match={match} variant="compact" /></div><Link href={routes.user.place(clinic.id)} className="mt-3 inline-flex min-h-11 items-center rounded-control bg-primary px-4 text-sm font-semibold text-white">Открыть на карте<ArrowRight aria-hidden="true" className="ml-2 h-4 w-4" /></Link></>; }
+  if (intent === "clinic") { const clinic = places.find((place) => place.id === "place_clinic_12"); if (!clinic) return null; const match = calculateAccessibilityMatch(userNeeds, clinic.accessibility); return <><p>Для вас важны условия из профиля. Нашла тестовое место с персональной оценкой доступности {match.score}%.</p><div className="mt-3"><PlaceCard place={clinic} match={match} variant="compact" /></div><Link href={routes.user.place(clinic.id)} className="mt-3 inline-flex min-h-11 items-center rounded-control bg-primary px-4 text-sm font-semibold text-white">Открыть на карте<ArrowRight aria-hidden="true" className="ml-2 h-4 w-4" /></Link></>; }
   if (intent === "volunteer") return <><p>Помогу создать запрос. Куда нужно поехать?</p><div className="mt-3 flex flex-wrap gap-2"><Link href={`${routes.user.volunteerRequest}?intent=volunteer&location=clinic`} className="rounded-full border border-primary/30 bg-primary-soft px-4 py-2 text-sm font-semibold text-primary">В клинику</Link><Link href={`${routes.user.volunteerRequest}?intent=volunteer&location=event`} className="rounded-full border border-primary/30 bg-primary-soft px-4 py-2 text-sm font-semibold text-primary">На мероприятие</Link><Link href={`${routes.user.volunteerRequest}?intent=volunteer`} className="rounded-full border border-primary/30 bg-primary-soft px-4 py-2 text-sm font-semibold text-primary">Другое</Link></div><Link href={`${routes.user.volunteerRequest}?intent=volunteer`} className="mt-4 inline-flex min-h-11 items-center rounded-control bg-primary px-4 text-sm font-semibold text-white">Создать запрос волонтёру</Link></>;
-  if (intent === "broken_elevator") return <><p>Если речь об объекте на карте, можно сообщить об изменении. В demo уже подготовлена карточка транспортного узла.</p><div className="mt-3"><AIEntityCard title="Транспортный узел «Центральный»" description="У западной платформы есть временное ограничение." href={routes.user.placeReport("place_station_demo")} ctaLabel="Сообщить о проблеме" /></div></>;
+  if (intent === "broken_elevator") return <><p>Если речь об объекте на карте, можно сообщить об изменении. В демо уже подготовлена карточка транспортного узла.</p><div className="mt-3"><AIEntityCard title="Транспортный узел «Центральный»" description="У западной платформы есть временное ограничение." href={routes.user.placeReport("place_station_demo")} ctaLabel="Сообщить о проблеме" /></div></>;
   if (intent === "job") return <><p>Начните с условий, которые помогают выполнять работу: формат, темп и доступность рабочего места.</p><div className="mt-3"><AIEntityCard icon="organization" title="Подобрать вакансию" description="Откройте реальный список вакансий с фильтрами по формату и доступности." href={routes.user.vacancies} ctaLabel="Открыть вакансии" /></div></>;
-  if (intent === "course") return <><p>Покажу demo-курсы и критерии доступного обучения: субтитры, расшифровка и гибкий темп.</p><div className="mt-3"><AIEntityCard icon="organization" title="Подобрать курс" description="Сравните форматы обучения и запишитесь на подходящую программу." href={routes.user.courses} ctaLabel="Открыть курсы" /></div></>;
-  if (intent === "event") return <><p>Для событий сначала проверьте место и доступность входа. В demo события связаны с картой.</p><div className="mt-3"><AIEntityCard icon="organization" title="Найти событие" description="Откройте список событий и проверьте доступное место на карте." href={routes.user.events} ctaLabel="Открыть события" /></div></>;
-  if (intent === "match") return <><p>Accessibility Match — demo-оценка того, насколько условия места совпадают с вашим профилем. Это не медицинское заключение.</p><div className="mt-3"><AIEntityCard icon="article" title="Как читать карточку доступности" description="Посмотрите причины оценки и свежесть данных." href={routes.user.article("article_read_accessibility")} /></div></>;
+  if (intent === "course") return <><p>Покажу тестовые курсы и критерии доступного обучения: субтитры, расшифровка и гибкий темп.</p><div className="mt-3"><AIEntityCard icon="organization" title="Подобрать курс" description="Сравните форматы обучения и запишитесь на подходящую программу." href={routes.user.courses} ctaLabel="Открыть курсы" /></div></>;
+  if (intent === "event") return <><p>Для событий сначала проверьте место и доступность входа. В демо события связаны с картой.</p><div className="mt-3"><AIEntityCard icon="organization" title="Найти событие" description="Откройте список событий и проверьте доступное место на карте." href={routes.user.events} ctaLabel="Открыть события" /></div></>;
+  if (intent === "match") return <><p>Персональная оценка доступности — демонстрационная оценка того, насколько условия места совпадают с вашим профилем. Это не медицинское заключение.</p><div className="mt-3"><AIEntityCard icon="article" title="Как читать карточку доступности" description="Посмотрите причины оценки и свежесть данных." href={routes.user.article("article_read_accessibility")} /></div></>;
   return <><p>Подберу организацию по теме и покажу услуги, контакты, специалистов и связанные места.</p><div className="mt-3"><AIEntityCard icon="organization" title="Навигатор социальных сервисов" description="Социальная навигация и подготовка обращения." href={routes.user.organization("org_social_navigator")} /></div></>;
 }
 
@@ -90,7 +122,7 @@ export function AIHelpScreen() {
     setMessages((current) => [...current, { id: `user-${Date.now()}`, role: "user", text: value }, { id: `assistant-${Date.now()}-answer`, role: "assistant", text: intent ? "" : "В demo доступны несколько подготовленных сценариев. Выберите пример ниже.", intent: intent ?? undefined }]);
     if (intent) { setActiveIntent(intent); setTyping(true); window.setTimeout(() => setTyping(false), 280); }
   };
-  return <div className="flex min-h-0 flex-1 flex-col"><HelpHeader title="AI-навигатор" backHref={routes.user.help} /><main className="app-scrollbar min-h-0 flex-1 overflow-y-auto px-5 py-5"><div className="rounded-card border border-primary/20 bg-primary-soft p-4"><div className="flex items-start gap-3"><span className="flex h-10 w-10 items-center justify-center rounded-full bg-primary text-white"><Bot aria-hidden="true" className="h-5 w-5" /></span><div><h2 className="font-bold text-ink">Демо AI-навигатора</h2><p className="mt-1 text-sm leading-5 text-muted">Выберите сценарий или опишите задачу. Ответы подготовлены заранее и ведут в реальные demo-разделы.</p></div></div></div><div className="mt-5 space-y-3" aria-live="polite">{messages.map((message) => <ChatBubble key={message.id} role={message.role}>{message.role === "user" ? message.text : message.intent ? <AIResponse intent={message.intent} /> : message.text}</ChatBubble>)}{typing ? <ChatBubble role="assistant"><span className="inline-flex items-center gap-2 text-muted"><span className="h-2 w-2 animate-pulse rounded-full bg-primary" />Готовлю следующий шаг…</span></ChatBubble> : null}</div><section className="mt-6" aria-labelledby="intent-title"><h2 id="intent-title" className="text-lg font-bold text-ink">Подготовленные сценарии</h2><div className="mt-3 flex flex-wrap gap-2">{aiIntentExamples.map((example) => <QuickReply key={example.id} onClick={() => startIntent(example.id)}>{example.label}</QuickReply>)}</div></section><form className="mt-6" onSubmit={(event) => { event.preventDefault(); submit(); }}><label htmlFor="ai-question" className="text-sm font-semibold text-ink">Опишите задачу</label><div className="mt-2 flex gap-2"><Input id="ai-question" value={input} onChange={(event) => setInput(event.target.value)} placeholder="Например: найти доступную клинику" /><Button type="submit" aria-label="Отправить вопрос" className="h-12 w-12 shrink-0 px-0"><Send aria-hidden="true" className="h-5 w-5" /></Button></div></form><div className="mt-6 rounded-control border border-border bg-surface p-3 text-xs leading-5 text-muted"><ShieldAlert aria-hidden="true" className="mr-1 inline h-4 w-4" />{uiCopy.demo.aiDisclaimer}</div>{activeIntent ? <p className="mt-3 text-center text-xs text-muted">Сценарий: {aiIntentExamples.find((item) => item.id === activeIntent)?.label}</p> : null}</main></div>;
+  return <div className="flex min-h-0 flex-1 flex-col"><HelpHeader title="ИИ-навигатор" backHref={routes.user.help} /><main className="app-scrollbar min-h-0 flex-1 overflow-y-auto px-5 py-5"><div className="rounded-card border border-primary/20 bg-primary-soft p-4"><div className="flex items-start gap-3"><span className="flex h-10 w-10 items-center justify-center rounded-full bg-primary text-white"><Bot aria-hidden="true" className="h-5 w-5" /></span><div><h2 className="font-bold text-ink">Демо ИИ-навигатора</h2><p className="mt-1 text-sm leading-5 text-muted">Выберите сценарий или опишите задачу. Ответы подготовлены заранее и ведут в реальные разделы демонстрации.</p></div></div></div><div className="mt-5 space-y-3" aria-live="polite">{messages.map((message) => <ChatBubble key={message.id} role={message.role}>{message.role === "user" ? message.text : message.intent ? <AIResponse intent={message.intent} /> : message.text}</ChatBubble>)}{typing ? <ChatBubble role="assistant"><span className="inline-flex items-center gap-2 text-muted"><span className="h-2 w-2 animate-pulse rounded-full bg-primary" />Готовлю следующий шаг…</span></ChatBubble> : null}</div><section className="mt-6" aria-labelledby="intent-title"><h2 id="intent-title" className="text-lg font-bold text-ink">Подготовленные сценарии</h2><div className="mt-3 flex flex-wrap gap-2">{aiIntentExamples.map((example) => <QuickReply key={example.id} onClick={() => startIntent(example.id)}>{example.label}</QuickReply>)}</div></section><form className="mt-6" onSubmit={(event) => { event.preventDefault(); submit(); }}><label htmlFor="ai-question" className="text-sm font-semibold text-ink">Опишите задачу</label><div className="mt-2 flex gap-2"><Input id="ai-question" value={input} onChange={(event) => setInput(event.target.value)} placeholder="Например: найти доступную клинику" /><Button type="submit" aria-label="Отправить вопрос" className="h-12 w-12 shrink-0 px-0"><Send aria-hidden="true" className="h-5 w-5" /></Button></div></form><div className="mt-6 rounded-control border border-border bg-surface p-3 text-xs leading-5 text-muted"><ShieldAlert aria-hidden="true" className="mr-1 inline h-4 w-4" />{uiCopy.demo.aiDisclaimer}</div>{activeIntent ? <p className="mt-3 text-center text-xs text-muted">Сценарий: {aiIntentExamples.find((item) => item.id === activeIntent)?.label}</p> : null}</main></div>;
 }
 
 export function KnowledgeScreen() {

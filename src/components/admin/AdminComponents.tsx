@@ -12,6 +12,7 @@ import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
 import { EmptyState } from "@/components/ui/EmptyState";
 import { StateBadge } from "@/components/ui/StateBadge";
+import { localizeVisibleCopy } from "@/lib/localizeVisibleCopy";
 
 export const reportTypeLabels: Record<AccessibilityReport["type"], string> = {
   entrance: "Вход",
@@ -54,7 +55,7 @@ export const qualityStateLabels: Record<AdminQualityState, string> = {
 };
 
 export function AdminMetricCard({ label, value, detail, tone = "primary" }: { label: string; value: string | number; detail?: string; tone?: "primary" | "warning" | "success" }) {
-  return <Card className="p-4"><div className="flex items-start justify-between gap-3"><div><p className="text-sm font-semibold text-muted">{label}</p><p className={`mt-2 text-3xl font-bold ${tone === "warning" ? "text-warning" : tone === "success" ? "text-success" : "text-primary"}`}>{value}</p></div><Badge className="bg-primary-soft text-primary">Demo-данные</Badge></div>{detail ? <p className="mt-3 text-xs leading-5 text-muted">{detail}</p> : null}</Card>;
+  return <Card tone="elevated" className="p-4"><div><p className="text-sm font-semibold text-muted">{localizeVisibleCopy(label)}</p><p className={`mt-2 text-3xl font-bold tracking-[-0.03em] ${tone === "warning" ? "text-warning" : tone === "success" ? "text-success" : "text-primary"}`}>{value}</p></div>{detail ? <p className="mt-3 text-xs leading-5 text-muted">{localizeVisibleCopy(detail)}</p> : null}</Card>;
 }
 
 export function AdminTable({ headers, rows, empty = "Записей пока нет." }: { headers: string[]; rows: ReactNode[][]; empty?: string }) {
@@ -89,7 +90,7 @@ export function VerificationDetail({ item, onClose, onVerify, onRequestUpdate }:
 
 export function DataQualityCard({ state, detail }: { state: AdminQualityState; detail?: string }) { return <Card className="p-4"><div className="flex items-start gap-3"><div className="mt-0.5 text-warning"><AlertTriangle aria-hidden="true" className="h-5 w-5" /></div><div><p className="font-semibold text-ink">{qualityStateLabels[state]}</p><p className="mt-1 text-sm leading-6 text-muted">{detail ?? "Состояние показано по demo-данным и требует контекстной проверки."}</p></div></div></Card>; }
 
-export function AdminChart({ values, labels }: { values: number[]; labels: string[] }) { const max = Math.max(...values, 1); return <div className="flex items-end gap-3 rounded-card border border-border bg-surface p-4" aria-label="Demo-график"><div className="flex h-40 flex-1 items-end gap-2">{values.map((value, index) => <div key={`${labels[index]}-${value}`} className="flex flex-1 flex-col items-center justify-end gap-2"><span className="text-xs font-semibold text-ink">{value}</span><div className="w-full rounded-t-control bg-primary" style={{ height: `${Math.max(8, (value / max) * 100)}%` }} /><span className="text-[11px] text-muted">{labels[index]}</span></div>)}</div></div>; }
+export function AdminChart({ values, labels }: { values: number[]; labels: string[] }) { const max = Math.max(...values, 1); return <div className="flex items-end gap-3 rounded-card border border-border bg-surface p-4" aria-label="Demo-график"><div className="flex h-40 flex-1 items-end gap-2">{values.map((value, index) => <div key={`${labels[index]}-${value}`} className="flex flex-1 flex-col items-center justify-end gap-2"><span className="text-xs font-semibold text-ink">{value}</span><div className="w-full rounded-t-control bg-primary" style={{ height: `${Math.max(8, (value / max) * 100)}%` }} /><span className="text-xs text-muted">{labels[index]}</span></div>)}</div></div>; }
 
 export function StatusHistory({ entries }: { entries: AdminHistoryEntry[] }) { return <div className="mt-5 border-t border-border pt-4"><div className="flex items-center gap-2 text-sm font-semibold text-ink"><History aria-hidden="true" className="h-4 w-4 text-primary" />История статусов</div>{entries.length ? <div className="mt-3 space-y-2">{entries.map((entry) => <div key={entry.id} className="rounded-control bg-surface-soft p-3 text-sm"><div className="flex justify-between gap-3"><span className="font-semibold text-ink">{entry.action}</span><span className="text-xs text-muted">{entry.timestampLabel}</span></div>{entry.detail ? <p className="mt-1 text-muted">{entry.detail}</p> : null}</div>)}</div> : <p className="mt-2 text-sm text-muted">История пока не заполнена.</p>}</div>; }
 

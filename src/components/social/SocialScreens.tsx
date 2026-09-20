@@ -1,6 +1,6 @@
 "use client";
 
-import { ArrowLeft, CalendarDays, Sparkles } from "lucide-react";
+import { CalendarDays, Sparkles } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
@@ -18,13 +18,14 @@ import { Toast } from "@/components/ui/Toast";
 import { Skeleton } from "@/components/ui/Skeleton";
 import type { SocialCommunity, SocialPost, SocialUser } from "@/types/social";
 import { CommunityCard, CommunityDetail, ContactRequest, DatingRecommendationCard, FriendRequestCard, PostCard, PostDetail, SocialAuthor, SocialTabs, StoryRail, StoryViewer, UserCard, UserProfile } from "@/components/social/SocialComponents";
+import { AppScreenHeader } from "@/components/demo/AppScreenHeader";
 
 function authorOf(id: string): SocialAuthor { const user = socialUsers.find((item) => item.id === id); if (user) return { id: user.id, name: user.name, verified: user.verified, city: user.city, avatarLabel: user.avatarLabel, authorType: "user" }; const organization = socialOrganizations.find((item) => item.id === id); return { id, name: organization?.name ?? "Автор demo", verified: organization?.verified ?? false, city: organization?.city, avatarLabel: (organization?.name ?? "AD").split(" ").map((part) => part[0]).join("").slice(0, 2), authorType: "organization" }; }
 const authorMap = Object.fromEntries([...socialUsers.map((item) => [item.id, authorOf(item.id)]), ...socialOrganizations.map((item) => [item.id, authorOf(item.id)])]) as Record<string, SocialAuthor>;
 function communityById(id?: string) { return id ? socialCommunities.find((item) => item.id === id) : undefined; }
 function userById(id: string) { return socialUsers.find((item) => item.id === id); }
-function PageHeader({ title, backHref = routes.user.home, action }: { title: string; backHref?: string; action?: React.ReactNode }) { return <header className="flex items-center justify-between border-b border-border bg-surface px-5 pb-3 pt-8 max-md:pt-5"><div className="flex items-center gap-3"><Link href={backHref} aria-label="Назад" className="inline-flex h-11 w-11 items-center justify-center rounded-control text-muted hover:bg-surface-soft"><ArrowLeft aria-hidden="true" className="h-5 w-5" /></Link><h1 className="text-lg font-bold text-ink">{title}</h1></div>{action}</header>; }
-function ScrollMain({ children }: { children: React.ReactNode }) { return <main className="app-scrollbar min-h-0 flex-1 overflow-y-auto px-5 py-5">{children}</main>; }
+function PageHeader({ title, backHref = routes.user.home, action }: { title: string; backHref?: string; action?: React.ReactNode }) { return <AppScreenHeader title={title} backHref={backHref} rightAction={action} compact />; }
+function ScrollMain({ children }: { children: React.ReactNode }) { return <main className="app-scrollbar min-h-0 min-w-0 flex-1 overflow-y-auto px-5 py-5">{children}</main>; }
 function relatedPost(post: SocialPost): { label: string; href: string; icon: "map" | "event" | "course" | "help" | "club" } | undefined { if (post.relatedPlaceId) { const place = places.find((item) => item.id === post.relatedPlaceId); return { label: `Открыть место: ${place?.name ?? "карточка места"}`, href: routes.user.place(post.relatedPlaceId), icon: "map" }; } if (post.relatedEventId) { const event = opportunityEvents.find((item) => item.id === post.relatedEventId); return { label: `Открыть событие: ${event?.title ?? "событие"}`, href: routes.user.event(post.relatedEventId), icon: "event" }; } if (post.relatedCourseId) { const course = opportunityCourses.find((item) => item.id === post.relatedCourseId); return { label: `Открыть курс: ${course?.title ?? "курс"}`, href: routes.user.course(post.relatedCourseId), icon: "course" }; } if (post.relatedVacancyId) { const vacancy = opportunityVacancies.find((item) => item.id === post.relatedVacancyId); return { label: `Открыть вакансию: ${vacancy?.title ?? "вакансия"}`, href: routes.user.vacancy(post.relatedVacancyId), icon: "course" }; } if (post.relatedHelpHref) return { label: "Открыть помощь", href: post.relatedHelpHref, icon: "help" }; if (post.relatedClubId) { const community = socialCommunities.find((item) => item.clubId === post.relatedClubId); return { label: `Открыть сообщество: ${community?.title ?? "сообщество"}`, href: community ? routes.user.communityDetail(community.id) : routes.user.clubs, icon: "club" }; } return undefined; }
 function postComments(post: SocialPost) { return post.commentCount ? ["Спасибо, это полезный опыт.", "Сохранил(а), чтобы вернуться перед следующим шагом."] : []; }
 

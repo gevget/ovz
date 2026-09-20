@@ -23,7 +23,7 @@ export function AccessibilityFeatureList({ features, userNeeds = [], highlightRe
   const relevantFeatures = new Set(userNeeds.map((need) => needToFeature[need]).filter(Boolean));
   return (
     <Card className="overflow-hidden">
-      <div className="border-b border-border px-4 py-3"><h2 className="font-bold text-ink">Условия доступности</h2><p className="mt-1 text-sm text-muted">Параметры объекта из demo-данных</p></div>
+      <div className="border-b border-border px-4 py-3"><h2 className="font-bold text-ink">Условия доступности</h2><p className="mt-1 text-sm text-muted">Параметры объекта из тестовых данных</p></div>
       <ul className="divide-y divide-border">
         {featureKeys.map((key) => {
           const status = features[key];

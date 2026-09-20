@@ -748,3 +748,299 @@ Stage N — **Accessibility, responsive, QA, polish**: завершён с за�
 ## Следующий рекомендуемый Stage
 
 Canonical документация не определяет Stage O или иной следующий крупный этап после Stage N. Следующим должен быть отдельно согласованный scope владельца продукта; самостоятельно переходить к нему не следует.
+
+## Отдельный Stage N.1 — Mobile Shell / Navigation / Back Behavior Audit
+
+Статус: завершён. Это отдельный audit-проход поверх завершённого Stage N; новый продуктовый Stage не начинался.
+
+### Scope N.1
+
+- User / Volunteer / Partner routes приведены к общей схеме `DemoToolbar → PhoneFrame → screen → fixed BottomNavigation`.
+- Map и Help больше не теряют нижнюю навигацию; контентный scroll отделён от `shrink-0` navigation.
+- Профиль User возвращён в `PhoneFrame`, включая root, nested и direct unknown-route screen.
+- Введён общий `AppScreenHeader`; nested profile routes получили canonical Back на `/demo/user/profile`.
+- Убран `router.back()` из scope; закрытие фильтров карты использует `/demo/user/map`.
+- Active tab для User Opportunities и Partner Content учитывает вложенные группы маршрутов.
+
+### Audit / QA artifacts
+
+- Полная таблица маршрутов: [`SHELL_NAVIGATION_AUDIT.md`](SHELL_NAVIGATION_AUDIT.md).
+- Обновление итогового отчёта: [`FINAL_QA_REPORT.md`](FINAL_QA_REPORT.md).
+- Runtime CUA проверил User Map, User Help, User Profile, nested Profile, Volunteer Home/detail и Partner Home/detail.
+
+### Изменённые файлы Stage N.1
+
+- `src/components/demo/DemoPhoneShell.tsx`, `src/components/demo/AppScreenHeader.tsx`.
+- `src/components/demo/RoleHomeClient.tsx`, `src/components/demo/UserAppShell.tsx`, `src/components/demo/UserUnknownRoute.tsx`.
+- `src/components/demo/BottomNavigation.tsx`.
+- `src/components/map/MapRouteFrame.tsx`, `MapHeader.tsx`, `MapFiltersScreen.tsx`.
+- `src/components/help/HelpRouteFrame.tsx`, `HelpScreens.tsx`.
+- `src/components/opportunities/OpportunitiesRouteFrame.tsx`, `OpportunityScreens.tsx`.
+- `src/components/social/SocialRouteFrame.tsx`, `SocialScreens.tsx`.
+- `src/components/profile/ProfileRouteFrame.tsx`, `ProfileScreens.tsx`.
+- `src/components/volunteer/VolunteerAppShell.tsx`, `VolunteerBottomNavigation.tsx`, `VolunteerScreens.tsx`.
+- `src/components/partner/PartnerAppShell.tsx`, `PartnerBottomNavigation.tsx`, `PartnerScreens.tsx`.
+- `SHELL_NAVIGATION_AUDIT.md`.
+
+### Противоречия / ограничения N.1
+
+- Историческая запись Stage N о том, что Git repository отсутствует, больше не описывает текущее состояние: репозиторий уже создан и опубликован в предыдущем проходе; в N.1 внешние push/deploy не выполнялись.
+- В текущих документах не найден отдельный следующий продуктовый Stage после N; следующий этап должен быть согласован владельцем продукта.
+- Полный Axe/Lighthouse, screen-reader audit и точная viewport matrix остаются инструментально недоступны; выполнен доступный CUA/AX fallback.
+
+### Проверки N.1
+
+- `npm run typecheck` — passed.
+- `npm run lint` — passed; остаётся стандартное уведомление Next.js о deprecated `next lint`.
+- `npm run build` — passed; production build сгенерировал 448 статических страниц.
+- Финальный CUA smoke после чистого перезапуска dev-сервера — passed; transient `.next` cache collision устранён остановкой старого dev-процесса и пересозданием только generated cache.
+
+## Отдельный Stage N.2 — Full Visual Design System Audit & Polish
+
+Статус: завершён в заявленном visual-only scope. Проверены все 125 route entries и 31 уникальный visual template; новые функции, роли, сущности, статусы, маршруты, backend, auth и product IA не добавлялись. Shell/navigation/back invariants Stage N.1 сохранены.
+
+### Audit и результат
+
+- Созданы [`VISUAL_SYSTEM_AUDIT.md`](VISUAL_SYSTEM_AUDIT.md) и [`FULL_VISUAL_ROUTE_AUDIT.md`](FULL_VISUAL_ROUTE_AUDIT.md). В route-аудите есть отдельная строка для каждого существующего route entry, включая dynamic templates и not-found fallback.
+- Через CUA визуально открыты public landing, role select/scenarios, User flagship screens, Help/AI, Opportunities, Feed, Profile, Volunteer, Partner, Admin, form, empty/error/success и representative dynamic routes. Проверено 31 уникальное visual template, без application error state.
+- В 20 weakest screens применён system-first polish: Landing Hero, Demo Role Select, User Home, Map, Place Detail, Route Options, Journey, Help Home, AI Navigator, Opportunities Home, Feed, Profile, Volunteer Home, Volunteer Active Help, Partner Dashboard, Partner Accessibility, Partner Content, Admin Overview, Admin Reports и Help Request/not-found.
+- Выявлено 6 корневых визуальных несоответствий, исправлено 6: inverse Card collision на Partner Dashboard, повторяющиеся status/hover hex values, визуальная несогласованность inverse surfaces, нижняя навигация с min-content overflow, расширение Social Feed flex item за пределы PhoneFrame и несогласованные shared overlay/toast surfaces.
+
+### Что изменено по системе
+
+- Typography: подтверждены системный sans stack, heading hierarchy и minimum 13px для UI-caption; AppScreenHeader остаётся единым заголовочным контрактом.
+- Spacing: сохранён ритм 4/8/12/16/20/24/32/40 без изменения IA и route-specific content.
+- Headers: сохранены shared AppScreenHeader/role shell и отдельный desktop Admin header.
+- Buttons: shared `Button` переведён на semantic primary/danger hover tokens; touch targets и existing variants не менялись.
+- Cards: добавлен semantic `Card tone="inverse"` с backwards-compatible распознаванием существующих dark hero cards; white/soft card defaults сохранены.
+- Forms: проверены Help request, vacancy apply/create, organization edit, accessibility edit и map filters через существующие shared controls.
+- Navigation: User / Volunteer / Partner сохранили по 5 canonical пунктов; добавлены `min-w-0`, wrapping labels и shared shell width constraint для узких экранов.
+- Landing: hero/showcase inverse surfaces используют общие semantic tokens; реальные React demo visuals, а не изображения-скриншоты.
+- Admin: desktop-first shell, sidebar, tables, filters и mobile summary не менялись; проверены Overview и Reports плюс route variants.
+- Responsive: исправлен конкретный feed overflow; ограничение на полную матрицу viewport 390/430/768/1024/1440/1920 остаётся зафиксированным.
+
+### Изменённые файлы Stage N.2
+
+- `VISUAL_SYSTEM_AUDIT.md`, `FULL_VISUAL_ROUTE_AUDIT.md`, `IMPLEMENTATION_STATUS.md`, `FINAL_QA_REPORT.md`.
+- `src/styles/tokens.css`, `tailwind.config.ts`.
+- `src/components/ui/Card.tsx`, `Button.tsx`, `StateBadge.tsx`, `Modal.tsx`, `Toast.tsx`.
+- `src/components/demo/DemoPhoneShell.tsx`, `BottomNavigation.tsx`.
+- `src/components/volunteer/VolunteerBottomNavigation.tsx`, `src/components/partner/PartnerBottomNavigation.tsx`.
+- `src/components/social/SocialScreens.tsx`.
+
+### Проверки Stage N.2
+
+- `npm run typecheck` — passed.
+- `npm run lint` — passed без warnings/errors; остаётся только стандартное уведомление Next.js о deprecated `next lint`.
+- `npm run build` — passed; production build сгенерировал 448 статических страниц, shared First Load JS 102 kB.
+- CUA smoke после чистого production build и перезапуска dev на `http://localhost:3100` — passed для Landing, User Feed, Map, Place Detail, Help Request, Volunteer Home, Partner Home/Accessibility и Admin Reports. В серверном логе только успешные 200/404 для ожидаемого not-found; application runtime errors не обнаружены.
+- Повторно проверены Stage N.1 invariants: BottomNavigation, Back links, Map/Help/Profile shell, Volunteer flow, Partner accessibility flow, Admin report screen и Demo reset control. Данные и state machine не расширялись.
+- Полный Axe/Lighthouse, screen-reader audit, browser zoom 200% и точная six-viewport matrix недоступны в текущем окружении; это явно отражено в QA report.
+
+### Противоречия и ограничения Stage N.2
+
+- Новых конфликтов между product-документами не найдено. Сохранён canonical conflict `06_DEMO_DATA.md` (`help_001: open`) против `20/22/31` (`matching`); runtime использует `matching` по правилу `33_MASTER_INDEX_AND_CONFLICT_RULES.md`.
+- Документация по-прежнему физически лежит в корне, хотя отдельные handoff notes ожидают `/docs`; перенос не входит в visual scope.
+- В старых исторических разделах есть устаревшая формулировка об отсутствии Git repository; текущее состояние уже опубликовано и не изменялось в N.2.
+- Остались намеренные route-local gradients/illustrative CSS map visuals и device-geometry значения PhoneFrame; они не являются новыми компонентами или semantic color roles.
+
+### Следующий Stage
+
+Canonical документация не определяет Stage O или иной следующий продуктовый этап после Stage N.2. Следующим должен быть отдельно согласованный scope владельца продукта; самостоятельно переходить к нему не следует.
+
+## UX Polish Pass — 2026-09-20
+
+Статус: завершён в рамках запроса на повышение UX с 6/10 до целевого уровня 8/10. Новые product flows и следующий Stage не начинались.
+
+### Результат
+
+- Введён верхнеуровневый visual system: semantic `accent` / `warm` roles, dark overrides, container/section rhythm, shared shadows, focus states, transitions и surface grid.
+- Shared `Button`, `Card`, `Input`, `Badge` и demo toolbar получили единый визуальный контракт; deep-link route теперь правильно отражает активную роль в selector.
+- Landing получил 8 оптимизированных WebP-изображений и новую `LandingVisualGallery` из 6 сюжетов. Hero и Problem-flow больше не состоят только из UI-заглушек; чрезмерные вертикальные интервалы showcase сокращены.
+- `PlaceCard` в User Map, Place detail, Help/AI, landing demo и связанных сценариях теперь использует тематические изображения вместо gradient-placeholder.
+- Исправлены два найденных при screenshot QA визуальных дефекта: hero mask осветляла текстовый контент, а соседняя Problem-card растягивалась в пустую высоту.
+- Все 125 существующих route entries и 31 visual template наследуют shared polish без изменения route IA и state machine.
+
+### Файлы и артефакты
+
+- Новый отчёт: [`UX_POLISH_AUDIT.md`](UX_POLISH_AUDIT.md).
+- Новая landing gallery: `src/components/landing/LandingVisualGallery.tsx`.
+- Landing composition/primitives/showcases: `src/components/landing/LandingPage.tsx`, `LandingPrimitives.tsx`, `LandingShowcases.tsx`.
+- Demo visuals/role consistency: `src/components/demo/PlaceCard.tsx`, `DemoToolbar.tsx`.
+- Shared system: `src/styles/tokens.css`, `tailwind.config.ts`, `src/components/ui/Button.tsx`, `Card.tsx`, `Input.tsx`, `Badge.tsx`.
+- Generated assets: `public/assets/landing/*.webp` — 8 optimized images.
+
+### Проверки UX Polish Pass
+
+- `npm run typecheck` — passed.
+- `npm run lint` — passed без warnings/errors; остаётся штатное уведомление Next.js о deprecated `next lint`.
+- `npm run build` — passed; production build сгенерировал `448/448` статических страниц.
+- CUA/AX + screenshot smoke: landing hero/gallery, User Map + PlaceCard, Partner Profile deep-link, shared role selector; application error state не обнаружен.
+- Ограничения остаются прежними: полный Axe/Lighthouse, screen-reader, browser zoom 200% и точная six-viewport matrix не запускались.
+
+### Следующий Stage
+
+Следующий продуктовый Stage canonical-документацией не задан. После этого UX-прохода самостоятельно переходить к новым этапам не следует; следующий Stage должен быть отдельно согласован владельцем продукта.
+
+## Incremental UX Polish Pass — 8.0 → 8.5 — 2026-09-20
+
+Статус: завершён. Это продолжение visual polish pass, без новых продуктовых flows и без перехода к следующему Stage.
+
+### Что улучшено
+
+- Добавлен semantic `device` token для PhoneFrame и `nav` shadow для User / Volunteer / Partner bottom navigation.
+- Demo toolbar стал sticky с backdrop, единым focus-state для role/text-scale selects и сохранением контекста при scroll.
+- Textarea и IconButton синхронизированы с Input/Button по focus ring, transition и hover behavior.
+- RoleSelect cards получили active shadow и аккуратный hover lift.
+- Admin shell полностью локализован по навигационным названиям и report tabs; nested admin routes теперь правильно определяют active section и topbar title.
+- Во время QA найден stale `.next` chunk после смены build/dev процесса; dev был остановлен и заново поднят после чистого build. Финальный runtime smoke после этого прошёл.
+
+### Проверки
+
+- `npm run typecheck` — passed.
+- `npm run lint` — passed без warnings/errors; остаётся штатное предупреждение Next.js о deprecated `next lint`.
+- `npm run build` — passed; `448/448` статических страниц.
+- CUA/AX + screenshot smoke: Landing, Role Select, User Home/Map, Volunteer Home, Partner Profile deep-link, Admin Reports; runtime error после чистого перезапуска не воспроизводится.
+
+### Следующий Stage
+
+Следующий продуктовый Stage canonical-документацией не задан. Самостоятельный переход к нему не выполнялся; дальнейшие изменения требуют отдельного согласованного scope.
+
+## Landing composition and Russian copy pass — 2026-09-20
+
+Статус: завершён.
+
+- Фотографии распределены по смысловым секциям лендинга вместо одного общего фотоблока: город, вход, карта, доступность, путь, помощь, сообщество, контроль данных и экосистема.
+- Hero уменьшен по высоте: убраны полноэкранное растягивание и чрезмерный пустой объём вокруг телефонного прототипа.
+- Между карточками проверки сообщества добавлен единый вертикальный ритм; showcase-шаги стали плотнее.
+- Пользовательские англоязычные подписи переведены на русский, включая названия проверки доступности, режима пути, демо-сценариев, пользовательского продукта и промышленной версии.
+- `typecheck`, `lint` и `build` после изменений проходят; build генерирует `448/448` страниц.
+
+Следующий продуктовый Stage не начинался.
+
+## Дополнительный проход русской терминологии — 2026-09-20
+
+Статус: завершён.
+
+- Единая русская нормализация добавлена в общие UI-примитивы и оболочки экранов.
+- Проверены landing, помощь, карта, профиль пользователя, кабинет партнёра и администраторский раздел: видимые англоязычные пользовательские подписи убраны.
+- Внутренние route IDs, enum values и имена компонентов сохранены, так как они не являются пользовательским текстом.
+- После прохода повторно выполнены `typecheck`, `lint`, `build`; production build сгенерировал `448/448` страниц.
+
+## Stage N.2 — Design System V2 / финальный route-by-route polish — 2026-09-20
+
+Статус: **завершён**. Это системный визуальный redesign в пределах существующей IA и контрактов; новый продуктовый Stage не начинался.
+
+### Точный охват
+
+- Route entries: **125/125**.
+- Уникальные визуальные шаблоны, открытые в CUA: **31/31**.
+- Reusable component files: **73/73** (71 baseline + 2 shared primitives).
+- Публичные визуальные assets: **8**.
+- Issue log: **18 найдено / 18 исправлено** — P0: 1/1, P1: 4/4, P2: 8/8, P3: 5/5.
+
+### Что сделано
+
+- Введены V2 tokens для surfaces, semantic statuses, text hierarchy, gutters, content rhythm, elevations, feature radius, focus и high-contrast/dark overrides.
+- Приведены к единому контракту Card, Button, Input, Textarea, IconButton, Chip, Modal, Toast, EmptyState, AppScreenHeader, DemoToolbar, PhoneFrame и три нижние навигации.
+- Лендинг получил распределённые по смысловым секциям изображения; фотографии не собраны в одном блоке, hero уменьшен и между карточками community-проверки восстановлен явный ритм.
+- Исправлена композиция `/demo/volunteer/home` и `/demo/partner/home`: подключены существующие полноценные home screens вместо legacy placeholder без добавления новых функций.
+- Видимые англоязычные пользовательские подписи переведены; внутренние route IDs, enum values и имена компонентов сохранены как технические идентификаторы.
+- Для persisted demo state добавлена версия `v3` и миграция старых `Demo-*` подписей, чтобы старый localStorage не возвращал прежний текст.
+
+### Проверки
+
+- `npm run typecheck` — passed.
+- `npm run lint` — passed, 0 warnings/errors; остаётся штатное предупреждение о deprecated `next lint`.
+- `npm run build` — passed, **448/448** статических страниц.
+- Production server поднят на [http://localhost:3100](http://localhost:3100).
+- CUA smoke: 31 шаблон, `errors=0`, остаточные проверяемые англоязычные UI-маркеры `0`.
+
+### Противоречия и ограничения
+
+- Новых конфликтов документации не найдено. Сохранён документированный конфликт `06_DEMO_DATA.md` (`help_001: open`) против canonical `matching` в `20/22/31`; runtime использует `matching` по правилу `33_MASTER_INDEX_AND_CONFLICT_RULES.md`.
+- Полные Axe/Lighthouse, screen-reader, browser zoom 200% и точная viewport matrix `390/430/768/1024/1440/1920` не выполнялись из-за ограничений инструментов.
+- Следующий Stage canonical-документацией не задан. Самостоятельно переходить к нему нельзя; нужен отдельный согласованный scope.
+
+## Stage N.2 — Definition of Done closure — 2026-09-20
+
+### Final scope and counts
+
+| Метрика | Результат |
+|---|---:|
+| Найдено route entries | 125 |
+| Проверено в route audit | 125/125 |
+| Уникальных визуальных шаблонов открыто через CUA | 31/31 |
+| Reusable component files audited | 73/73 |
+| Representative weakest screens | 30/30 fixed |
+| Audit issue records | 18 found / 18 fixed |
+| Public visual assets | 8 |
+| Semantic AppIcon names | 77 |
+
+Issue records по приоритетам: P0 — 1, P1 — 4, P2 — 8, P3 — 5. Category touch counts (один issue record может входить в несколько категорий): typography 3, spacing 4, color 3, buttons 2, cards 4, forms 2, tags 1, icons 1, images 2, headers 1, navigation 2, landing 3, user 4, volunteer 2, partner 2, admin 2.
+
+### Shell / navigation result
+
+- До финального исправления вне `PhoneFrame` находились ровно 2 unexpected routes: `/demo` и `/demo/scenarios`; после — **0**.
+- Предусмотренных desktop Admin exceptions — **10 concrete routes**, включая динамический `/demo/admin/home`.
+- Unexpected missing BottomNavigation — **0**; role screens сохраняют fixed bottom navigation.
+- Missing canonical Back — **0**; active-tab bugs — **0**.
+- Не менялись IA, state machine, backend, auth, payments, real AI, карта или продуктовые сущности.
+
+### Final deliverables
+
+Созданы/обновлены: `DESIGN_SYSTEM_V2.md`, `ICON_SYSTEM.md`, `VISUAL_ASSET_MANIFEST.md`, `30_WEAKEST_VISUAL_SCREENS.md`, `COMPONENT_VISUAL_AUDIT.md`, `FULL_VISUAL_ROUTE_AUDIT.md`, `SHELL_NAVIGATION_AUDIT.md`, `FINAL_QA_REPORT.md`, этот файл.
+
+### Final verification
+
+- `npm run typecheck` — passed.
+- `npm run lint` — passed, 0 warnings/errors; остаётся только штатное уведомление о deprecated `next lint`.
+- `npm run build` — passed после closure pass, **448/448** статических страниц.
+- CUA smoke после исправлений shell/icon/tag — passed: `/demo`, `/demo/scenarios`, User Map, Volunteer Home, Partner Home и Admin Reports; application errors не обнаружены.
+
+Следующий canonical Stage в документации не задан. Самостоятельный переход к нему не выполнялся.
+
+## Stage N.3 — Ultimate Product Design Transformation — 2026-09-20
+
+Статус: **завершён** в рамках визуального scope. Следующий Stage самостоятельно не начинался.
+
+### Охват и точные результаты
+
+| Метрика | Результат |
+|---|---:|
+| Route entries найдено / проверено | 125 / 125 |
+| Уникальные визуальные шаблоны | 31 / 31 |
+| Reusable TSX components | 73 / 73 |
+| Существующие локальные WebP assets проверены | 8 / 8 |
+| Новые изображения добавлены в N.3 | 0 |
+| AppIcon names mapped / exercised by shared UI | 77 / 14 |
+| Visual issue records | 22 найдено / 22 исправлено |
+| PhoneFrame violations | 0 unexpected; 10 expected Admin desktop exceptions |
+| Missing BottomNavigation / Back / active-tab bugs | 0 / 0 / 0 |
+
+### Что сделано
+
+- Введена V3-слойка семантических токенов: нейтральные поверхности, violet/coral/rose/teal акценты, map illustration variables, semantic spacing aliases, radii и hero/inset elevation.
+- Общие Button/Card/Badge/Chip/Input/Textarea/AppScreenHeader/Modal получили единый tactile/focus/nowrap/elevation contract.
+- Лендинг сохранил продуктовую историю и получил более компактный hero, единый section rhythm, распределённые изображения по смысловым блокам и более сильную иерархию CTA.
+- Карта, вход, маршрут, фильтры, партнёрский чек-лист, профиль и emergency/success states переведены на семантические цвета; визуальные исключения оставлены только там, где это иллюстративная геометрия.
+- Shared navigation/header/modal используют `AppIcon`; локальные контентные Lucide-иконки не смешиваются с навигационной системой.
+- IA, роли, маршруты, backend, auth, payments, state machine, data contracts и продуктовая логика не менялись.
+
+### Проверки
+
+- `npm run typecheck` — passed.
+- `npm run lint` — passed, 0 warnings/errors; остаётся штатное уведомление о deprecated `next lint`.
+- `npm run build` — passed, **448/448** страниц.
+- Production server перезапущен на [http://localhost:3100](http://localhost:3100) из актуальной сборки.
+- CUA/AX/screenshot smoke: landing, `/demo`, scenarios, User Map/Profile, Volunteer Home, Partner Home/Accessibility и Admin Reports; после clean restart application errors — **0**.
+
+### Найденные противоречия и ограничения
+
+- Новых документальных конфликтов не найдено. Сохранён существующий конфликт `06_DEMO_DATA.md` (`help_001: open`) против canonical `matching` в `20/22/31`; применено правило `33_MASTER_INDEX_AND_CONFLICT_RULES.md`, runtime оставлен `matching`.
+- Полные Axe/Lighthouse, screen-reader, exact browser zoom 200% и точная матрица скриншотов `390/430/768/1024/1440/1920` недоступны в текущем инструментальном окружении и не объявляются пройденными.
+- Остаточные прямые Lucide-импорты относятся к уникальным content-иконкам; 17 hex-литералов и raw geometry-исключения документированы как map/editorial/device optics, а не новые визуальные системы.
+
+### Следующий Stage
+
+Canonical-документация не задаёт следующий Stage. Самостоятельный переход не выполнялся; нужен отдельный согласованный scope.

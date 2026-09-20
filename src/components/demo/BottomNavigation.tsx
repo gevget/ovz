@@ -1,40 +1,43 @@
 "use client";
 
-import { CircleHelp, Home, Map, UserRound, Sparkles } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { routes } from "@/lib/routes";
 import { uiCopy } from "@/lib/ui-copy";
 import { cn } from "@/lib/cn";
+import { AppIcon, type AppIconName } from "@/components/ui/AppIcon";
 
 const items = [
-  { href: routes.user.home, label: uiCopy.nav.home, icon: Home },
-  { href: routes.user.map, label: uiCopy.nav.map, icon: Map },
-  { href: routes.user.help, label: uiCopy.nav.help, icon: CircleHelp },
-  { href: routes.user.opportunities, label: uiCopy.nav.opportunities, icon: Sparkles },
-  { href: routes.user.profile, label: uiCopy.nav.profile, icon: UserRound },
+  { href: routes.user.home, label: uiCopy.nav.home, icon: "Home" as AppIconName },
+  { href: routes.user.map, label: uiCopy.nav.map, icon: "Map" as AppIconName },
+  { href: routes.user.help, label: uiCopy.nav.help, icon: "CircleHelp" as AppIconName },
+  { href: routes.user.opportunities, label: uiCopy.nav.opportunities, icon: "Sparkles" as AppIconName },
+  { href: routes.user.profile, label: uiCopy.nav.profile, icon: "UserRound" as AppIconName },
 ];
 
 export function BottomNavigation() {
   const pathname = usePathname();
 
   return (
-    <nav aria-label="Основная навигация" className="border-t border-border bg-surface/95 px-2 pb-[max(8px,env(safe-area-inset-bottom))] pt-2 backdrop-blur">
-      <ul className="grid grid-cols-5 gap-1">
-        {items.map(({ href, label, icon: Icon }) => {
-          const active = pathname === href || (href !== routes.user.home && pathname.startsWith(`${href}/`));
+            <nav aria-label="Основная навигация" className="shrink-0 border-t border-border/80 bg-surface/92 px-2 pb-[max(8px,env(safe-area-inset-bottom))] pt-2 shadow-nav backdrop-blur-xl">
+      <ul className="grid min-w-0 grid-cols-5 gap-1">
+        {items.map(({ href, label, icon }) => {
+          const opportunityGroup = [routes.user.opportunities, routes.user.events, routes.user.clubs];
+          const active = href === routes.user.opportunities
+            ? opportunityGroup.some((prefix) => pathname === prefix || pathname.startsWith(`${prefix}/`))
+            : pathname === href || (href !== routes.user.home && pathname.startsWith(`${href}/`));
           return (
-            <li key={href}>
+            <li key={href} className="min-w-0">
               <Link
                 href={href}
                 aria-current={active ? "page" : undefined}
                 className={cn(
-                  "flex min-h-12 flex-col items-center justify-center gap-1 rounded-control px-1 text-[13px] font-semibold transition-colors",
-                  active ? "bg-primary-soft text-primary" : "text-muted hover:bg-surface-soft hover:text-ink",
+                  "flex min-h-12 w-full min-w-0 flex-col items-center justify-center gap-1 rounded-control px-0 text-center text-[13px] font-semibold leading-tight tracking-[-0.02em] transition-colors",
+                  active ? "bg-primary-soft/70 text-primary shadow-xs" : "text-muted hover:bg-surface-soft hover:text-ink",
                 )}
               >
-                <Icon aria-hidden="true" className="h-5 w-5" />
-                <span>{label}</span>
+                <AppIcon name={icon} className="h-5 w-5" />
+                <span className="max-w-full whitespace-nowrap">{label}</span>
               </Link>
             </li>
           );

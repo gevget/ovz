@@ -222,7 +222,7 @@ export const initialDemoSettings: DemoSettings = {
  * - transient loading flags
  */
 
-export const DEMO_STORAGE_KEY = "accessibility-navigator-demo-v2";
+export const DEMO_STORAGE_KEY = "accessibility-navigator-demo-v3";
 
 /**
  * Reset behavior:

@@ -1,11 +1,11 @@
 import Link from "next/link";
 import { ArrowRight, Building2, BriefcaseBusiness, CalendarDays, FileCheck2, HandHelping, MapPinned } from "lucide-react";
-import { DemoToolbar } from "@/components/demo/DemoToolbar";
+import { DemoPresentationShell } from "@/components/demo/DemoPresentationShell";
 import { Card } from "@/components/ui/Card";
 import { routes } from "@/lib/routes";
 
 const scenarios = [
-  { title: "Найти доступную клинику", description: "Карта, Accessibility Match и маршрут с учётом условий.", href: routes.user.map, icon: MapPinned },
+  { title: "Найти доступную клинику", description: "Карта, персональная доступность и маршрут с учётом условий.", href: routes.user.map, icon: MapPinned },
   { title: "Запросить помощь", description: "Создание запроса сопровождения и переход в общий поток помощи.", href: routes.user.volunteerRequest, icon: HandHelping },
   { title: "Найти работу", description: "Вакансии, условия доступности и отправка резюме.", href: routes.user.vacancies, icon: BriefcaseBusiness },
   { title: "Сходить на мероприятие", description: "Событие, место и проверка доступного входа.", href: routes.user.events, icon: CalendarDays },
@@ -15,14 +15,13 @@ const scenarios = [
 
 export default function DemoScenariosPage() {
   return (
-    <div className="min-h-screen bg-canvas text-ink">
-      <DemoToolbar />
-      <main className="mx-auto w-full max-w-5xl px-4 pb-12 pt-8 lg:px-8">
+    <DemoPresentationShell title="Сценарии демо">
+      <div className="text-ink">
         <Link href={routes.demo} className="inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-muted hover:text-ink"><ArrowRight aria-hidden="true" className="h-4 w-4 rotate-180" />К выбору роли</Link>
-        <p className="mt-10 text-sm font-bold uppercase tracking-[0.12em] text-primary">Guided demo</p>
-        <h1 className="mt-3 text-4xl font-bold tracking-[-0.04em] sm:text-5xl">Сценарии</h1>
-        <p className="mt-4 max-w-2xl text-base leading-7 text-muted">Выберите стартовую точку и пройдите ключевой поток на локальных demo-данных.</p>
-        <div className="mt-8 grid gap-4 md:grid-cols-2">
+        <p className="mt-8 text-sm font-bold uppercase tracking-[0.12em] text-primary">Сценарии демо</p>
+        <h1 className="mt-3 text-3xl font-bold tracking-[-0.04em]">Сценарии</h1>
+        <p className="mt-4 max-w-2xl text-base leading-7 text-muted">Выберите стартовую точку и пройдите ключевой поток на локальных тестовых данных.</p>
+        <div className="mt-6 grid gap-3">
           {scenarios.map(({ title, description, href, icon: Icon }) => (
             <Link key={title} href={href} className="group">
               <Card className="h-full p-5 transition-colors group-hover:border-primary/50 group-hover:bg-primary-soft">
@@ -34,7 +33,7 @@ export default function DemoScenariosPage() {
             </Link>
           ))}
         </div>
-      </main>
-    </div>
+      </div>
+    </DemoPresentationShell>
   );
 }

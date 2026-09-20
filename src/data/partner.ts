@@ -137,7 +137,7 @@ export const partnerOrganizationFallback: Organization = {
   name: "Городская клиника №12",
   category: "medicine",
   verified: true,
-  description: "Demo-организация для сценариев карты и партнёрского кабинета.",
+  description: "Демо-организация для сценариев карты и партнёрского кабинета.",
   city: "Москва",
   contacts: { phone: "+7 000 000-00-00", email: "demo@clinic.local" },
 };
@@ -147,7 +147,7 @@ export const partnerPlaceFallback: Place = {
   organizationId: partnerOrganizationId,
   name: "Городская клиника №12",
   category: "medicine",
-  address: "Demo-адрес, Москва",
+  address: "Демо-адрес, Москва",
   coordinates: { lat: 55.756, lng: 37.62 },
   schedule: "Сегодня до 20:00",
   verified: true,
