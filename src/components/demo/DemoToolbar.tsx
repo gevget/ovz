@@ -43,12 +43,12 @@ export function DemoToolbar() {
   };
 
   return (
-    <header className="sticky top-0 z-30 mx-auto flex w-full max-w-[1180px] flex-wrap items-center justify-between gap-3 border-b border-border/70 bg-canvas/92 px-4 py-3 backdrop-blur-xl lg:px-8">
-      <div className="flex items-center gap-3">
-        <Link href="/" className="text-sm font-bold tracking-[-0.02em] text-ink">Навигатор доступности</Link>
+    <header className="demo-toolbar sticky top-0 z-30 mx-auto flex min-w-0 w-full max-w-[1180px] flex-wrap items-center justify-between gap-3 border-b border-border/70 bg-canvas/92 px-4 py-3 backdrop-blur-xl lg:px-8">
+      <div className="flex min-w-0 items-center gap-3">
+        <Link href="/" className="min-w-0 truncate text-sm font-bold tracking-[-0.02em] text-ink">Навигатор доступности</Link>
         <span className="rounded-full bg-primary-soft px-2 py-1 text-[13px] font-bold uppercase tracking-[0.12em] text-primary">Демо</span>
       </div>
-      <div className="flex flex-wrap items-center gap-2">
+      <div className="flex min-w-0 flex-wrap items-center justify-end gap-2">
         <label className="relative">
           <span className="sr-only">Выбрать роль</span>
           <select

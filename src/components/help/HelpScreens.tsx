@@ -54,7 +54,14 @@ function translateHelpText(text: string) {
 
 function localizeHelpNode(node: ReactNode): ReactNode {
   if (typeof node === "string") return translateHelpText(node);
-  if (Array.isArray(node)) return node.map((item) => localizeHelpNode(item));
+  if (Array.isArray(node)) {
+    return node.map((item, index) => {
+      const localized = localizeHelpNode(item);
+      return isValidElement(localized) && localized.key == null
+        ? cloneElement(localized, { key: `help-localized-${index}` })
+        : localized;
+    });
+  }
   if (!isValidElement(node)) return node;
   const children = (node.props as { children?: ReactNode }).children;
   return cloneElement(node, undefined, localizeHelpNode(children));

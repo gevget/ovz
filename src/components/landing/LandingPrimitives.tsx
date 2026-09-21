@@ -46,7 +46,7 @@ export function LandingHeader({ onPartner }: { onPartner: () => void }) {
           ))}
         </nav>
         <div className="hidden items-center gap-2 lg:flex">
-          <Link href="/demo" className="inline-flex min-h-11 items-center gap-2 rounded-control bg-primary px-4 text-sm font-semibold text-white shadow-button hover:-translate-y-px hover:bg-primary-strong hover:shadow-md">
+          <Link href="/demo" className="inline-flex min-h-11 items-center gap-2 rounded-control bg-primary px-4 text-sm font-semibold text-white shadow-sm hover:bg-primary-strong hover:shadow-md">
             Открыть демо <ArrowRight aria-hidden="true" className="h-4 w-4" />
           </Link>
           <Button variant="secondary" onClick={onPartner}>Стать партнёром</Button>
@@ -102,7 +102,7 @@ export function LandingMedia({ src, alt, className, priority = false, sizes = "(
 
 export function DemoCTA({ label = "Открыть демо", role, variant = "primary" }: { label?: string; role?: "user" | "volunteer" | "partner" | "admin"; variant?: "primary" | "secondary" }) {
   const href = role ? `/demo?role=${role}` : "/demo";
-  return <Link href={href} className={cn("inline-flex min-h-12 items-center justify-center gap-2 rounded-control px-5 text-sm font-semibold transition-[background-color,border-color,box-shadow,transform]", variant === "primary" ? "bg-primary text-white shadow-button hover:-translate-y-px hover:bg-primary-strong hover:shadow-md" : "border border-border bg-surface text-ink hover:bg-surface-soft")}>{label}<ArrowRight aria-hidden="true" className="h-4 w-4" /></Link>;
+  return <Link href={href} className={cn("inline-flex min-h-12 items-center justify-center gap-2 rounded-control px-5 text-sm font-semibold transition-[background-color,border-color,box-shadow]", variant === "primary" ? "bg-primary text-white shadow-sm hover:bg-primary-strong hover:shadow-md" : "border border-border bg-surface text-ink hover:bg-surface-soft")}>{label}<ArrowRight aria-hidden="true" className="h-4 w-4" /></Link>;
 }
 
 export function LandingFooter() {
@@ -113,14 +113,14 @@ export function LandingFooter() {
           <p className="font-bold text-ink">Навигатор доступности</p>
           <p className="mt-3 max-w-sm text-sm leading-6 text-muted">Технологии должны сокращать расстояние между человеком и возможностью действовать.</p>
         </div>
-        <nav aria-label="Ссылки проекта" className="grid gap-2 text-sm text-muted">
+        <nav aria-label="Ссылки проекта" className="min-w-0 grid gap-2 text-sm text-muted">
           <a href="#about" className="hover:text-ink">О проекте</a>
           <a href="#opportunities" className="hover:text-ink">Возможности</a>
           <Link href="/demo" className="hover:text-ink">Демо</Link>
           <a href="#partners" className="hover:text-ink">Партнёрам</a>
           <a href="#investors" className="hover:text-ink">Инвесторам</a>
           <a href="#partners" className="hover:text-ink">Контакты</a>
-          <span className="text-muted">Политика конфиденциальности · в подготовке</span>
+          <span className="break-words text-muted">Политика конфиденциальности · в подготовке</span>
         </nav>
         <div className="text-sm text-muted">
           <p>Тестовая версия продукта</p>

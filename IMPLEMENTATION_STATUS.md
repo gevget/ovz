@@ -1044,3 +1044,92 @@ Issue records по приоритетам: P0 — 1, P1 — 4, P2 — 8, P3 — 
 ### Следующий Stage
 
 Canonical-документация не задаёт следующий Stage. Самостоятельный переход не выполнялся; нужен отдельный согласованный scope.
+
+## P0 — Absolute Responsive & Demo App Contract — 2026-09-21
+
+Статус: **первый проход завершён**. Выполнен только scope текущего P0-контракта; к следующему продуктовому Stage не переходил.
+
+### Что сделано
+
+- Проведён repository audit с приоритетом `33_MASTER_INDEX_AND_CONFLICT_RULES.md`, затем прочитаны документы, на которые ссылается `37_CODEX_MASTER_PROMPT.md`, и новый P0 contract.
+- Исправлен shared mobile/desktop shell: `100vh/100dvh`, `minmax(0,1fr)`, отдельная строка BottomNavigation, safe-area padding, контентная прокрутка над навигацией.
+- `/demo/user/home` подключён к общему `DemoPhoneShell`; все три role shells используют общий PhoneFrame boundary и свои пять пунктов навигации.
+- Back стандартизирован через `AppScreenHeader`; root screens больше не ведут сами на себя.
+- Modal/toast/story overlays ограничены PhoneFrame на demo-экранах через общий portal root.
+- Усилены правила `min-w-0`, `max-w-full`, переносы текста, responsive actions, карточки и навигационные подписи; landing hero получил мобильную безопасную типографику.
+- Создан `RESPONSIVE_ROUTE_AUDIT.md` с 125 строками маршрутов и обязательной P0-матрицей.
+
+### Проверки
+
+- `npm run typecheck` — passed.
+- `npm run lint` — passed, 0 warnings/errors; остаётся только штатное уведомление Next.js о deprecated `next lint`.
+- `npm run build` — passed, 448/448 статических страниц.
+- `git diff --check` — passed; остаются только предупреждения Git о нормализации LF/CRLF.
+- Runtime smoke через локальный Chromium: landing и `/demo/user/home` при ширине 390px; подтверждены общий PhoneFrame, мобильная высота и нижняя навигация. Полный runtime matrix 320/360/390/430/768/Desktop не заявляется пройденным: `agent-browser`/Playwright отсутствуют.
+
+### Изменённые файлы
+
+- Shell: `src/components/demo/DemoPhoneShell.tsx`, `DemoPresentationShell.tsx`, `PhoneFrame.tsx`, `DemoPhoneOverlayRoot.tsx`, `RoleHomeClient.tsx`, `AppScreenHeader.tsx`, `DemoToolbar.tsx`.
+- Navigation/roles: `BottomNavigation.tsx`, `ResponsiveNavLabel.tsx`, `VolunteerBottomNavigation.tsx`, `PartnerBottomNavigation.tsx`, `UserAppShell.tsx`, `VolunteerScreens.tsx`, `PartnerScreens.tsx`.
+- Screens/overlays: `MapScreen.tsx`, `SearchResultsScreen.tsx`, `SocialComponents.tsx`, `Modal.tsx`, `Toast.tsx`, `PlaceCard.tsx`.
+- Primitives/tokens: `Button.tsx`, `Card.tsx`, `Input.tsx`, `Textarea.tsx`, `tokens.css`, `src/lib/localizeVisibleNode.ts` (сохранение React keys при рекурсивной локализации).
+- Documentation: `RESPONSIVE_ROUTE_AUDIT.md`, `SHELL_NAVIGATION_AUDIT.md`, `VISUAL_QUALITY_SCORECARD.md`, `IMPLEMENTATION_STATUS.md`.
+
+### Противоречия и ограничения
+
+- Старые записи N.3 о полном shell coverage и navigation 10/10 не учитывали P0 responsive/overlay contract; новый P0 audit позднее и имеет приоритет для responsive gate.
+- Фактически найденное расхождение: `/demo/user/home` обходил `PhoneFrame`; устранено.
+- Фактически найденное расхождение: mobile shell мог смещать BottomNavigation ниже viewport из-за min-height при многострочном toolbar; устранено.
+- Сохраняется ранее зафиксированный конфликт `06_DEMO_DATA.md` (`help_001: open`) против canonical `matching` в `20/22/31`; применяется правило `33_MASTER_INDEX_AND_CONFLICT_RULES.md`.
+- Полный runtime six-viewport route sweep и accessibility tooling недоступны из-за отсутствия `agent-browser`/Playwright; это явно отражено в `RESPONSIVE_ROUTE_AUDIT.md` и не превращено в скрытый PASS.
+
+### Следующий Stage
+
+Canonical-документация не назначает следующий Stage. После этого первого P0 прохода **не переходить самостоятельно ни к Stage N.5, ни к новому продуктовому scope**; следующий этап должен быть отдельно определён пользователем/мастер-индексом.
+
+## Stage N.3 — Pass F–I completion — 2026-09-21
+
+Статус: **завершено в рамках существующего Stage N.3**. Новый Stage N.4/N.5 не создавался и не запускался.
+
+### Итоговые метрики
+
+| Метрика | Результат |
+|---|---:|
+| Route entries | 125/125 |
+| Build pages | 448/448 |
+| Уникальные визуальные шаблоны | 31/31 |
+| Визуально просмотренные CUA шаблоны | 10 |
+| Runtime sample | 30 маршрутов: 15 User, 8 Volunteer, 7 Partner, 390px |
+| Overflow / PhoneFrame / nav / Back / app errors | 0 / 30/30 / 30/30 / 30/30 / 0 |
+| Landing assets | 8/8 существующих; 0 новых |
+| AppIcon | 77 mapped / 14 exercised |
+| Остаточные P0 в runtime sample | 0 |
+
+### Что сделано
+
+- Оформлен реальный Design System V3 source of truth: semantic surface/text/state aliases, controlled spacing scale, named type roles, card-family helpers и ограничения по elevation/glass/motion.
+- Общие `Button`, `Card`, `Chip`, `IconButton`, `AccessibilityMatch`, landing CTA и role navigation приведены к более спокойной иерархии; лишний подъём/масштабирование hover убран, вложенная карточка match стала inset-секцией.
+- Исправлено обрезание длинной подписи в нижней навигации на desktop viewport с 430px phone shell; социальные пользовательские маршруты подсвечивают «Разделы», заявки волонтёра — «Заявки».
+- Визуально проверены landing, role select, scenarios, User Map/place/profile/help, Volunteer Home, Partner Home и Admin Reports; runtime-прогон дополнен до 30 role routes.
+- Landing оставлен в существующей IA: 9 визуально отрендеренных изображений остаются распределены по смысловым секциям, новые изображения и продуктовые блоки не добавлялись.
+- Исправлена кнопка статуса волонтёра: она больше не распадается на три строки на 390px.
+- После финального smoke устранён узкий viewport edge case в футере лендинга: навигационная колонка получила `min-w-0`, privacy-строка — перенос; на 375px overflow снова равен 0.
+
+### Изменённые файлы в Pass F–I
+
+- `DESIGN_SYSTEM_V3.md`, `COMPONENT_DESIGN_AUDIT.md`, `FULL_VISUAL_ROUTE_AUDIT.md`, `RESPONSIVE_ROUTE_AUDIT.md`, `SHELL_NAVIGATION_AUDIT.md`, `ICON_SYSTEM.md`, `VISUAL_ASSET_MANIFEST.md`, `VISUAL_QUALITY_SCORECARD.md`, `FINAL_QA_REPORT.md`, `IMPLEMENTATION_STATUS.md`.
+- `src/styles/tokens.css`, `tailwind.config.ts`.
+- `src/components/ui/Button.tsx`, `Card.tsx`, `Chip.tsx`, `IconButton.tsx`.
+- `src/components/demo/AccessibilityMatch.tsx`, `BottomNavigation.tsx`, `PhoneFrame.tsx`, `RoleSelect.tsx`, `ResponsiveNavLabel.tsx`.
+- `src/components/landing/LandingPrimitives.tsx`, `src/components/volunteer/VolunteerBottomNavigation.tsx`, `VolunteerComponents.tsx`.
+- Ранее в этом же Stage N.3 P0 были изменены shell, overlays, headers, map/search/place primitives, partner/volunteer navigation и localization key handling; они сохранены.
+
+### Найденные противоречия и ограничения
+
+- Документальных конфликтов в Pass F–I не найдено. Ранее найденное расхождение `06_DEMO_DATA.md` (`help_001: open`) против canonical `matching` в `20/22/31` по-прежнему разрешается `33_MASTER_INDEX_AND_CONFLICT_RULES.md` в пользу canonical matching.
+- Статический аудит и build coverage не выдаются за полный визуальный runtime-аудит: CUA визуально просмотрел 10 шаблонов, 30 маршрутов прошли runtime smoke на 390px. Полная matrix 320/360/390/430/768/1024/1440/1920, Axe/Lighthouse, screen-reader и 200% zoom недоступны в текущем окружении.
+- Шесть исходных строк с hex-классами остаются только в legacy help/map illustration коде; визуальные семантические роли новых компонентов используют V3 tokens. Продуктовых изменений и новых этапов не добавлено.
+
+### Следующий Stage
+
+**Не открывать новый Stage самостоятельно.** Stage N.3 Pass F–I завершён; следующий Stage не назначен canonical-документацией и должен быть определён отдельно пользователем/мастер-индексом.

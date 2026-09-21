@@ -310,3 +310,33 @@ No new routes, roles, business logic, state transitions, backend/auth/payment in
 ### Limitations
 
 Full Axe/Lighthouse, screen-reader, exact browser zoom 200% and exact six-viewport screenshot matrix were unavailable. These are recorded as limitations, not claimed passes.
+
+## Stage N.3 Pass F–I final QA — 2026-09-21
+
+### Completion metrics
+
+| Metric | Result |
+|---|---:|
+| Route entries | 125/125 |
+| Generated build pages | 448/448 |
+| Unique visual templates | 31/31 |
+| CUA screenshot/AX reviewed templates | 10 |
+| CUA responsive runtime sample | 30 routes at 390px |
+| Runtime horizontal overflows | 0 |
+| PhoneFrame / content / bottom nav / Back | 30/30 each |
+| Application errors in final sample | 0 |
+| Existing landing WebP assets | 8/8 |
+| AppIcon names mapped / shared-ui exercised | 77/14 |
+| P0 remaining in reviewed sample | 0 |
+
+### What changed
+
+The visual system now has a semantic V3 alias layer, controlled spacing and type roles, flatter content cards, quieter button/chip/icon-button states, inset compact match panels, compact navigation labels, corrected active tabs for social and volunteer request routes, and a stronger volunteer availability control. The landing keeps the existing images distributed by section and uses a shorter, calmer rhythm without adding product content.
+
+### Checks
+
+`npm run typecheck` passed. `npm run lint` passed with 0 warnings/errors aside from the standard `next lint` deprecation notice. `npm run build` passed with 448/448 pages. `git diff --check` passed in the previous P0 pass; current changes remain uncommitted by request.
+
+### Limitations and conflicts
+
+No new documentation conflict was found. The existing `06_DEMO_DATA.md` help status discrepancy remains governed by `33_MASTER_INDEX_AND_CONFLICT_RULES.md`; canonical matching state remains authoritative. Exact six-width runtime, Axe/Lighthouse, screen-reader and 200% zoom checks remain unavailable and are not claimed.

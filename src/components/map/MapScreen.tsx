@@ -19,6 +19,7 @@ import { BottomSheet } from "@/components/ui/BottomSheet";
 import { EmptyState } from "@/components/ui/EmptyState";
 import { Skeleton } from "@/components/ui/Skeleton";
 import { Toast } from "@/components/ui/Toast";
+import { AppScreenHeader } from "@/components/demo/AppScreenHeader";
 
 function categoryLabel(category: string) {
   return placeCategories.find((item) => item.id === category)?.label ?? category;
@@ -86,9 +87,9 @@ export function MapScreen() {
 
   return (
     <div className="relative flex min-h-0 flex-1 flex-col">
-      <header className="border-b border-border bg-surface px-5 pb-3 pt-8 max-md:pt-5">
-        <div className="flex items-center justify-between gap-3"><div><p className="text-xs font-semibold uppercase tracking-[0.08em] text-primary">Ваш маршрут начинается здесь</p><h1 className="mt-1 text-2xl font-bold text-ink">Карта</h1></div><Link href={routes.user.home} aria-label="Вернуться на главную" className="inline-flex h-11 w-11 items-center justify-center rounded-control text-muted hover:bg-surface-soft"><Home aria-hidden="true" className="h-5 w-5" /></Link></div>
-        <div className="mt-4"><SearchBar value={search} onChange={setSearch} placeholder={uiCopy.map.searchPlaceholder} label="Поиск мест на карте" /></div>
+      <header className="border-b border-border bg-surface">
+        <AppScreenHeader title="Карта" backHref={routes.user.home} eyebrow="Ваш маршрут начинается здесь" compact />
+        <div className="px-5 pb-4"><SearchBar value={search} onChange={setSearch} placeholder={uiCopy.map.searchPlaceholder} label="Поиск мест на карте" /></div>
       </header>
       <main className="app-scrollbar min-h-0 flex-1 overflow-y-auto px-5 py-4">
         <div className="flex gap-2 overflow-x-auto pb-1" aria-label="Категории мест">{placeCategories.slice(0, 7).map((item) => <Chip key={item.id} selected={category === item.id} onClick={() => router.push(item.id === "all" ? routes.user.map : `${routes.user.map}?category=${item.id}`)}>{item.label}</Chip>)}</div>

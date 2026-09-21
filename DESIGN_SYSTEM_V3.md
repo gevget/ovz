@@ -1,7 +1,7 @@
 # Навигатор доступности — Design System V3
 
-Статус: Stage N.3 завершён; документ — рабочий контракт визуальной системы.
-Дата: 2026-09-20.
+Статус: Stage N.3, Pass F–I завершён; документ — рабочий контракт визуальной системы.
+Дата: 2026-09-21.
 
 V3 усиливает существующую V2 поверх текущей IA, canonical state и N.1 shell. Он не меняет роли, маршруты, Accessibility Match, state machines, backend или содержание сценариев.
 
@@ -67,3 +67,15 @@ Every dimension in `VISUAL_QUALITY_SCORECARD.md` must reach at least 9/10, excep
 - User, Volunteer and Partner screens remain inside `PhoneFrame`; Admin remains the only desktop exception. N.1 shell result remains 10/10.
 - Final implementation metrics: 125/125 route entries, 31/31 visual templates, 73/73 reusable TSX component files, 8/8 existing local WebP assets audited, 0 new assets added in N.3, 14 semantic AppIcon names actually exercised by shared UI, 77 names mapped.
 - Verified with `npm run typecheck`, `npm run lint`, `npm run build` (`448/448`) and CUA/AX production smoke after a clean server restart.
+
+## Stage N.3 — Pass F–I completion contract
+
+Pass F is now the source-of-truth implementation layer for subsequent screen work. It introduces semantic aliases for primary/secondary/elevated surfaces, primary/secondary/tertiary text, accessibility, AI/knowledge, positive, attention and community states; a controlled spacing scale; named type roles; and explicit card-family helpers in `src/styles/tokens.css` and `tailwind.config.ts`.
+
+The global material direction is intentionally quieter: default content cards are flat and opaque, elevation is reserved for interactive/floating/device surfaces, button/chip/icon-button hover no longer lifts or scales the control, and nested Accessibility Match blocks use a quiet inset surface instead of a card inside a card. Shared navigation labels use compact copy inside the 430px phone boundary even on a wide desktop viewport.
+
+Pass G touched shared primitives and representative templates only; it did not add routes, roles, data, state transitions or product features. Existing landing imagery remains distributed across problem, city, map, match, journey, help, community, freshness and role sections. No new raster asset was generated because the existing 8/8 local WebP set already covers the documented editorial roles.
+
+Pass H runtime evidence: 30 representative role routes at 390px (15 User, 8 Volunteer, 7 Partner) passed with 0 horizontal overflows, 30/30 PhoneFrames, 30/30 overlay roots, 30/30 content regions, 30/30 Back controls, 30/30 role navs and 30/30 application-error-free loads. A shell geometry check measured a 0px gap between content bottom and navigation top. Desktop checks at 1440px passed for landing and User Home with 0 overflow; the phone boundary remained intact.
+
+Pass I quality gate: route/build/template counts remain separate from the 10 screen templates visually reviewed in CUA. Full Axe/Lighthouse, screen-reader and exact six-width screenshot matrix remain environmental limitations and are not represented as hidden passes.

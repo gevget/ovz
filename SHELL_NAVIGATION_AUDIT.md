@@ -199,3 +199,39 @@
 | N.1 shell score | 10/10 |
 
 The N.3 visual pass changed shared material/tokens only. No shell boundary, route IA, navigation destination, state machine or role permission was changed.
+
+## P0 Responsive & Demo App Contract — 2026-09-21
+
+Статус: первый проход P0 завершён в пределах текущего контракта. Следующий продуктовый Stage самостоятельно не начинался.
+
+### Исправления общего уровня
+
+- `DemoPhoneShell` и `DemoPresentationShell` переведены на жёсткую viewport-оболочку `100vh/100dvh` с grid-строками `auto / minmax(0, 1fr)`; внутри `PhoneFrame` контент и BottomNavigation разделены строками `minmax(0, 1fr) / auto`.
+- `/demo/user/home` теперь использует тот же `DemoPhoneShell` и `BottomNavigation`, что и остальные пользовательские маршруты; root Back ведёт в `/demo`, а не в сам экран.
+- `AppScreenHeader` получил общий предсказуемый Back по умолчанию; home-экраны Volunteer и Partner не создают self-link.
+- `Modal`, `Toast` и `StoryViewer` получают ближайший overlay-root PhoneFrame через portal; viewport-level fallback сохранён для landing/admin.
+- Введены `min-w-0/max-w-full`, безопасное перенесение длинного текста, адаптивные подписи BottomNavigation и стек action-групп на узких экранах. `body` не использует `overflow-x: hidden`.
+- Карта и route content остаются внутри scrollable content area; нижняя навигация не является частью прокрутки контента.
+
+### P0 route matrix
+
+- `RESPONSIVE_ROUTE_AUDIT.md` содержит ровно 125 route entries и обязательные колонки 320/360/390/430/768/Desktop, overflow, cards, header, Back, BottomNav, Scroll, Overlay, Text scale и Status.
+- Статическая проверка маршрутов выполнена по всем 125 entries; browser smoke выполнен на `/`, `/demo/user/home` и representative shell/template screens при ширине 390px.
+- `agent-browser` и Playwright CLI отсутствуют в текущем окружении, поэтому точный runtime-прогон каждого маршрута на всех шести ширинах не объявляется выполненным. Это оставлено явным ограничением в route matrix.
+
+### Обнаруженные расхождения
+
+- Предыдущий N.3 audit считал role home покрытым общим shell, но фактически `/demo/user/home` возвращал `UserAppShell` напрямую. Исправлено через `RoleHomeClient`.
+- Предыдущий shell имел `min-height`-ограничение на main при многострочном мобильном DemoToolbar, из-за чего BottomNavigation уходила ниже viewport. Исправлено через фиксированный `100dvh` grid-контейнер.
+- Старый N.3 статус «navigation = 10/10» не покрывал новые P0-условия responsive overflow/overlay isolation; этот audit является более поздним и приоритетным для responsive gate.
+
+## Stage N.3 Pass H runtime regression — 2026-09-21
+
+| Sample | Routes | PhoneFrame | Overlay root | Bottom navigation | Back | Overflow | App errors |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| User | 15 | 15/15 | 15/15 | 15/15 | 15/15 | 0 | 0 |
+| Volunteer | 8 | 8/8 | 8/8 | 8/8 | 8/8 | 0 | 0 |
+| Partner | 7 | 7/7 | 7/7 | 7/7 | 7/7 | 0 | 0 |
+| Total | 30 | 30/30 | 30/30 | 30/30 | 30/30 | **0** | **0** |
+
+Additional checks: content bottom aligned exactly with navigation top (`delta = 0px`) on User Map at 390px; desktop 1440px User Home kept one PhoneFrame and one role navigation. The active User tab now covers feed/community/social routes through the existing «Разделы» group; Volunteer request details correctly keep «Заявки» active.

@@ -95,3 +95,29 @@ Deterministic sample from the 125 route entries used for the N.3 regression pass
 - CUA/AX production smoke after clean restart: landing, role select, scenarios, user map, user profile, volunteer home, partner home, partner accessibility and admin reports; no application errors on the current server.
 - `npm run typecheck`, `npm run lint` and `npm run build` passed; build generated 448/448 pages.
 - Full Axe/Lighthouse, screen-reader session, exact browser zoom 200% and exact six-viewport screenshot matrix were unavailable in the current tool environment. They remain explicit follow-up verification items, not hidden pass claims.
+
+## P0 responsive re-score — 2026-09-21
+
+| Dimension | Current | Evidence |
+|---|---:|---|
+| Mobile shell | 9.5 | Shared `100dvh` PhoneFrame, `minmax(0,1fr)` content, always-visible bottom navigation; representative 390px smoke passed |
+| Overflow resilience | 9.2 | Shared min-width rules, safe wrapping, responsive actions and 125-route static matrix; exact six-width runtime sweep remains unavailable |
+| Navigation / Back | 10.0 | Common AppScreenHeader, role-home root Back, compact labels for five-item navigation, 125-route matrix |
+| Overlay isolation | 9.5 | Modal, toast and story viewer portaled into PhoneFrame overlay root; viewport fallback preserved |
+| Landing mobile | 9.2 | Hero copy reduced and safely wrapped; 390px smoke passed; landing sections retain distributed imagery and controlled mobile rhythm |
+
+P0 gate: **PASS for the implemented first-pass scope**, with the explicit limitation that `agent-browser`/Playwright is not installed for a full six-viewport runtime sweep.
+
+## Pass I final quality gate — 2026-09-21
+
+| Dimension | Score | Evidence |
+|---|---:|---|
+| Foundations / semantic tokens | 9.2 | V3 aliases for surfaces, text, semantic states, spacing and type |
+| Cards / hierarchy | 9.1 | flat default cards, reserved elevation, inset compact match |
+| Actions / motion | 9.1 | unified 40–52px controls, no lift/scale hover, visible focus |
+| Responsive shell | 9.3 | 30/30 CUA role routes at 390px; content/nav boundary aligned |
+| Landing art direction | 9.2 | compact hero, 9 rendered distributed images, controlled section rhythm |
+| Navigation / Back / overlays | 10.0 | 30/30 runtime shell sample plus P0 geometry check |
+| Visual consistency | 9.1 | shared tokens and compact labels across User/Volunteer/Partner |
+
+Pass I gate: no observed P0 overflow, PhoneFrame violation, missing navigation/back or content hidden under navigation in the runtime sample. Full accessibility tooling remains an external limitation.

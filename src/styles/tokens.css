@@ -52,12 +52,41 @@
   --color-map-secondary-road: 198 211 206;
   --color-map-grid: 209 221 216;
   --color-map-route: 41 110 242;
+  /* V3 semantic aliases: use these names in new screen work so visual roles stay stable. */
+  --surface-primary: var(--color-surface);
+  --surface-secondary: var(--color-surface-2);
+  --surface-elevated: var(--color-surface-elevated);
+  --surface-overlay: var(--color-surface-overlay);
+  --text-primary: var(--color-text);
+  --text-secondary: var(--color-text-muted);
+  --text-tertiary: var(--color-text-subtle);
+  --color-accessibility: var(--color-teal);
+  --color-accessibility-soft: var(--color-teal-soft);
+  --color-ai: var(--color-violet);
+  --color-ai-soft: var(--color-violet-soft);
+  --color-positive: var(--color-success);
+  --color-positive-soft: var(--color-success-soft);
+  --color-attention: var(--color-warning);
+  --color-attention-soft: var(--color-warning-soft);
+  --color-community: var(--color-coral);
+  --color-community-soft: var(--color-coral-soft);
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --space-20: 5rem;
   --space-gutter: clamp(1rem, 3vw, 2rem);
   --space-content: clamp(1.125rem, 2vw, 1.5rem);
   --space-inline-gap: 0.75rem;
   --space-control-gap: 0.75rem;
   --space-card-gap: 1rem;
-  --space-section-gap: clamp(2.5rem, 6vw, 5rem);
+  --space-section-gap: clamp(2.5rem, 5vw, 4.5rem);
   --radius-control: 0.875rem;
   --radius-card: 1.25rem;
   --radius-sheet: 1.75rem;
@@ -165,10 +194,12 @@
 
 html {
   background: rgb(var(--color-bg));
+  min-width: 0;
 }
 
 body {
   margin: 0;
+  min-width: 0;
   background: rgb(var(--color-bg));
   color: rgb(var(--color-text));
   font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
@@ -191,11 +222,13 @@ a {
 
 img {
   display: block;
+  max-width: 100%;
 }
 
 button,
 a {
   -webkit-tap-highlight-color: transparent;
+  min-width: 0;
 }
 
 :focus-visible {
@@ -235,12 +268,47 @@ a {
   }
 
   .page-container {
-    width: min(100% - 2 * var(--space-gutter), 1280px);
+    width: min(100%, 1280px);
+    max-width: 100%;
+    padding-inline: var(--space-gutter);
     margin-inline: auto;
+    overflow-wrap: anywhere;
   }
 
   .page-section {
     padding-block: var(--space-section-gap);
+  }
+
+  .screen-padding {
+    padding-inline: var(--space-content);
+    padding-block: var(--space-content);
+  }
+
+  .card-content {
+    padding: var(--space-5);
+  }
+
+  .card-interactive {
+    transition: background-color 160ms ease, border-color 160ms ease, box-shadow 160ms ease;
+  }
+
+  .card-interactive:hover {
+    border-color: rgb(var(--color-border-strong));
+    background: rgb(var(--color-surface-2));
+  }
+
+  .card-alert {
+    border-color: rgb(var(--color-attention) / 0.28);
+    background: rgb(var(--color-attention-soft));
+  }
+
+  .card-selection {
+    border-color: rgb(var(--color-primary) / 0.34);
+    background: rgb(var(--color-primary-soft));
+  }
+
+  .card-media {
+    overflow: hidden;
   }
 
   .surface-grid {
@@ -279,15 +347,36 @@ a {
 
   .layout-section {
     display: grid;
+    min-width: 0;
     gap: var(--space-section-gap);
   }
 
+  .app-shell-content {
+    min-width: 0;
+    min-height: 0;
+    overflow-x: clip;
+    overflow-wrap: anywhere;
+  }
+
+  .responsive-action-grid {
+    display: grid;
+    min-width: 0;
+    gap: var(--space-control-gap);
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  @media (min-width: 380px) {
+    .responsive-action-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
   .content-stack > :not([hidden]) ~ :not([hidden]) {
-    margin-top: 1rem;
+    margin-top: var(--space-4);
   }
 
   .section-stack > :not([hidden]) ~ :not([hidden]) {
-    margin-top: 1.5rem;
+    margin-top: var(--space-6);
   }
 
   .control-select {
@@ -311,11 +400,15 @@ a {
   }
 
   #showcase .space-y-28 > :not([hidden]) ~ :not([hidden]) {
-    margin-top: 4rem;
+    margin-top: clamp(2.5rem, 5vw, 4rem);
   }
 
   #showcase [data-landing-step] {
-    min-height: 18rem;
+    min-height: clamp(12rem, 34vw, 18rem);
+  }
+
+  #showcase .space-y-16 > :not([hidden]) ~ :not([hidden]) {
+    margin-top: clamp(2rem, 5vw, 3.5rem);
   }
 
   @media (min-width: 640px) {
@@ -328,6 +421,58 @@ a {
     .page-section {
       padding-block: clamp(4rem, 7vw, 6rem);
     }
+
+    #showcase [data-landing-step] {
+      min-height: 18rem;
+    }
+  }
+
+  @media (max-width: 479px) {
+    .demo-toolbar-control {
+      width: 100%;
+    }
+
+    .demo-toolbar-control .control-select {
+      max-width: 100%;
+    }
+  }
+
+  @media (max-width: 379px) {
+    .app-phone-content .grid-cols-2 {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .app-phone-content .grid-cols-4 {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .app-phone-content button {
+      white-space: normal;
+      overflow-wrap: anywhere;
+    }
+  }
+
+  .type-display {
+    font-size: clamp(2.5rem, 7vw, 5.5rem);
+    line-height: 0.98;
+    letter-spacing: -0.055em;
+  }
+
+  .type-heading-1 {
+    font-size: clamp(1.875rem, 4vw, 3.25rem);
+    line-height: 1.08;
+    letter-spacing: -0.04em;
+  }
+
+  .type-heading-2 {
+    font-size: clamp(1.5rem, 3vw, 2.25rem);
+    line-height: 1.15;
+    letter-spacing: -0.03em;
+  }
+
+  .type-body-lg {
+    font-size: 1.125rem;
+    line-height: 1.65;
   }
 }
 

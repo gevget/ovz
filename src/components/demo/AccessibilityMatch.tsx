@@ -1,13 +1,13 @@
 import { AlertTriangle, CheckCircle2 } from "lucide-react";
 import type { AccessibilityMatchResult } from "@/types";
 import { Badge } from "@/components/ui/Badge";
-import { Card } from "@/components/ui/Card";
+import { cn } from "@/lib/cn";
 import { uiCopy } from "@/lib/ui-copy";
 
 export function AccessibilityMatch({ result, compact = false }: { result: AccessibilityMatchResult; compact?: boolean }) {
   const statusLabel = (status: AccessibilityMatchResult["reasons"][number]["status"]) => status === true ? uiCopy.accessibility.statusAvailable : status === false ? uiCopy.accessibility.statusUnavailable : status === "partial" ? uiCopy.accessibility.statusPartial : uiCopy.accessibility.statusUnknown;
   return (
-    <Card className={compact ? "p-3" : "p-4"}>
+    <div className={cn(compact ? "rounded-control bg-surface-soft/70 p-3" : "rounded-card border border-border bg-surface p-4")}>
       <div className="flex items-start justify-between gap-3">
         <div>
           <p className="text-xs font-semibold uppercase tracking-[0.08em] text-muted">Персональная доступность</p>
@@ -30,6 +30,6 @@ export function AccessibilityMatch({ result, compact = false }: { result: Access
       ) : (
         <p className="mt-3 text-sm text-muted">Профиль доступности пока не ограничивает рекомендации.</p>
       )}
-    </Card>
+    </div>
   );
 }

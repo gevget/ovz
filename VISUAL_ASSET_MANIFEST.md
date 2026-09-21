@@ -27,3 +27,10 @@
 | Image role changed | no; crop, surface and spacing only |
 
 The landing keeps imagery in context: city/problem, map/place, route/transport, help/community, freshness and partner ecosystem. This directly addresses the previous single-gallery composition issue.
+
+## Stage N.3 Pass F–I recheck — 2026-09-21
+
+- Existing local WebP assets: **8/8 present and reused**.
+- Landing imagery is distributed by meaning: entrance/problem, city context, venue/map, library/match, tram/journey, cafe/help, park/community and volunteer route/freshness/roles.
+- CUA runtime at 390px measured 9 rendered landing images with non-zero, section-specific bounds; no image caused horizontal overflow.
+- No new image generation was needed in this pass; no remote image dependency was introduced.

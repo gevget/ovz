@@ -20,7 +20,8 @@ import { HelpRequestCard, HelpRequestDetail, HelpStatusTimeline, ActiveHelpCard,
 import { AppScreenHeader } from "@/components/demo/AppScreenHeader";
 
 function VolunteerHeader({ title, backHref = routes.volunteer.home }: { title: string; backHref?: string }) {
-  return <AppScreenHeader title={title} backHref={backHref} eyebrow="Волонтёр" />;
+  const resolvedBackHref = title === "Заявки" && backHref === routes.volunteer.home ? routes.demo : backHref;
+  return <AppScreenHeader title={title} backHref={resolvedBackHref} eyebrow="Волонтёр" />;
 }
 
 function ScrollMain({ children }: { children: React.ReactNode }) { return <main className="app-scrollbar min-h-0 flex-1 overflow-y-auto px-5 py-5">{children}</main>; }

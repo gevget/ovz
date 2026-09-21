@@ -8,10 +8,10 @@ import { places } from "@/data/seed";
 import { useDemoStore } from "@/store/demoStore";
 import { routes } from "@/lib/routes";
 import { Card } from "@/components/ui/Card";
-import { Avatar } from "@/components/ui/Avatar";
 import { Badge } from "@/components/ui/Badge";
 import { AccessibilityMatch } from "@/components/demo/AccessibilityMatch";
 import { PlaceCard } from "@/components/demo/PlaceCard";
+import { AppScreenHeader } from "@/components/demo/AppScreenHeader";
 
 export function UserAppShell() {
   const router = useRouter();
@@ -22,23 +22,12 @@ export function UserAppShell() {
 
   return (
     <div className={`flex min-h-0 flex-1 flex-col bg-canvas text-ink ${settings.theme === "dark" ? "theme-dark" : ""} ${settings.highContrast ? "high-contrast" : ""} ${settings.reducedMotion ? "reduced-motion" : ""}`} style={{ fontSize: `${settings.textScale}em` }}>
-      <header className="flex items-center justify-between border-b border-border bg-surface px-5 pb-3 pt-8 max-md:pt-5">
-        <div className="flex items-center gap-3">
-          <Avatar initials="АМ" />
-          <div>
-            <p className="text-xs font-semibold text-muted">Добрый день</p>
-            <h1 className="text-lg font-bold">Анна</h1>
-          </div>
-        </div>
-        <div className="flex items-center gap-1">
-          <Link href={routes.user.profile} className="inline-flex h-11 w-11 items-center justify-center rounded-control text-muted hover:bg-surface-soft hover:text-ink" aria-label="Настройки профиля">
-            <Settings2 aria-hidden="true" className="h-5 w-5" />
-          </Link>
-          <Link href={routes.user.profile} className="inline-flex h-11 w-11 items-center justify-center rounded-control text-muted hover:bg-surface-soft hover:text-ink" aria-label="Уведомления">
-            <Bell aria-hidden="true" className="h-5 w-5" />
-          </Link>
-        </div>
-      </header>
+      <AppScreenHeader
+        title="Анна"
+        eyebrow="Добрый день"
+        rightAction={<div className="flex items-center gap-1"><Link href={routes.user.profile} className="inline-flex h-11 w-11 items-center justify-center rounded-control text-muted hover:bg-surface-soft hover:text-ink" aria-label="Настройки профиля"><Settings2 aria-hidden="true" className="h-5 w-5" /></Link>
+          <Link href={routes.user.profile} className="inline-flex h-11 w-11 items-center justify-center rounded-control text-muted hover:bg-surface-soft hover:text-ink" aria-label="Уведомления"><Bell aria-hidden="true" className="h-5 w-5" /></Link></div>}
+      />
       <main className="app-scrollbar min-h-0 flex-1 overflow-y-auto px-5 py-5">
         <Card tone="inverse" className="p-5">
           <Badge className="bg-white/15 text-white">Ваш навигатор</Badge>

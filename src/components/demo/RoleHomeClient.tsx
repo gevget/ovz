@@ -9,6 +9,8 @@ import { VolunteerHomeScreen } from "@/components/volunteer/VolunteerScreens";
 import { PartnerAppShell } from "@/components/partner/PartnerAppShell";
 import { PartnerHomeScreen } from "@/components/partner/PartnerScreens";
 import { AdminOverviewScreen } from "@/components/admin/AdminScreens";
+import { BottomNavigation } from "@/components/demo/BottomNavigation";
+import { DemoPhoneShell } from "@/components/demo/DemoPhoneShell";
 
 export function RoleHomeClient({ role }: { role: Role }) {
   const setRole = useDemoStore((state) => state.actions.setRole);
@@ -18,5 +20,5 @@ export function RoleHomeClient({ role }: { role: Role }) {
   if (role === "admin") return <AdminOverviewScreen />;
   if (role === "volunteer") return <VolunteerAppShell title="Заявки волонтёра"><VolunteerHomeScreen /></VolunteerAppShell>;
   if (role === "partner") return <PartnerAppShell><PartnerHomeScreen /></PartnerAppShell>;
-  return <UserAppShell />;
+  return <DemoPhoneShell title="Пользователь — демо" navigation={<BottomNavigation />}><UserAppShell /></DemoPhoneShell>;
 }

@@ -56,7 +56,7 @@ export function RoleSelect() {
               <button
                 key={role}
                 type="button"
-                className={`rounded-card border p-5 text-left transition-[border-color,background-color,box-shadow,transform] hover:-translate-y-px hover:shadow-card ${selected ? "border-primary bg-primary-soft shadow-card" : "border-border bg-surface hover:border-primary/50"}`}
+                className={`rounded-card border p-5 text-left transition-[border-color,background-color,box-shadow] hover:shadow-card ${selected ? "border-primary bg-primary-soft shadow-card" : "border-border bg-surface hover:border-primary/50"}`}
                 aria-pressed={selected}
                 onClick={() => setSelectedRole(role)}
               >

@@ -49,3 +49,16 @@ Final status, 20 reference screens, 20 random screens, issue counts and route-by
 | Product logic/IA/state changes | 0 |
 
 The remaining direct Lucide imports are intentional page-content icons, not duplicate navigation or shell icon systems. Full Axe/Lighthouse and screen-reader execution remain external-tool limitations documented in the QA reports.
+
+## Pass F–I delta
+
+| Area | Result | Evidence |
+|---|---|---|
+| Semantic token layer | Closed for shared V3 roles | `tokens.css` aliases + Tailwind semantic color/spacing/type names |
+| Card hierarchy | Improved | default Card is flat; elevated/floating roles retain depth; compact match is inset |
+| Action motion | Improved | shared Button/Chip/IconButton/CTA no longer lift or scale on hover/press |
+| Navigation labels | Closed | compact labels fit the 430px device on both mobile and desktop presentation |
+| Runtime sample | 30/30 | 390px CUA: 15 User, 8 Volunteer, 7 Partner; 0 overflow/error |
+| Full page inventory | 125/125 | static route matrix retained and cross-linked |
+
+Remaining direct Lucide imports are content-specific icons. The six remaining source hex lines are legacy help/map illustration utility classes; their visual roles are documented as the only screen-local exceptions and do not introduce a second palette.
