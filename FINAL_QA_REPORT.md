@@ -340,3 +340,24 @@ The visual system now has a semantic V3 alias layer, controlled spacing and type
 ### Limitations and conflicts
 
 No new documentation conflict was found. The existing `06_DEMO_DATA.md` help status discrepancy remains governed by `33_MASTER_INDEX_AND_CONFLICT_RULES.md`; canonical matching state remains authoritative. Exact six-width runtime, Axe/Lighthouse, screen-reader and 200% zoom checks remain unavailable and are not claimed.
+
+## Stage N.3 Final Closure Pass F–I — authoritative closure summary — 2026-09-21
+
+Эта сводка supersede-ит предыдущую строку `CUA screenshot/AX reviewed templates: 10`: после clean production build все **31/31** уникальных визуальных шаблонов были открыты и визуально просмотрены через CUA.
+
+| Metric | Result |
+|---|---:|
+| Route entries | **125** |
+| Generated Next pages | **448** |
+| Unique visual templates | **31** |
+| CUA-reviewed templates | **31/31** |
+| Runtime-tested routes | **42** |
+| Existing assets / new assets | **8 / 0** |
+| Icons mapped / shared UI exercised | **77 / 14** |
+| Natural rendered content/icon roles | **60+** |
+| Application errors / horizontal overflow | **0 / 0** |
+| Remaining P0 / P1 | **0 / 0** |
+
+Отдельно проверены полный landing scroll на 390px и 1440px, User/Volunteer/Partner shell contracts, overlays внутри phone boundary, admin desktop tables/charts, русский UI-copy и 30 weakest benchmarks. Новые изображения не добавлялись: существующие 8 локальных WebP покрывают нужные смысловые контексты, а text-first detail screens не получили нерелевантную декоративную фотографию.
+
+Следующий Stage не создавался и не назначен canonical-документацией.

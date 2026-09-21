@@ -7,7 +7,7 @@ export const currentPartner: PartnerProfile = {
   organizationId: "org_clinic_12",
   displayName: "Мария Петрова",
   roleLabel: "Представитель организации",
-  email: "partner@clinic.local",
+  email: "Связаться через форму",
 };
 
 export const partnerOrganizationId = currentPartner.organizationId;
@@ -139,7 +139,7 @@ export const partnerOrganizationFallback: Organization = {
   verified: true,
   description: "Демо-организация для сценариев карты и партнёрского кабинета.",
   city: "Москва",
-  contacts: { phone: "+7 000 000-00-00", email: "demo@clinic.local" },
+  contacts: { phone: "+7 000 000-00-00", email: "Связаться через форму" },
 };
 
 export const partnerPlaceFallback: Place = {

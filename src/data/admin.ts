@@ -4,7 +4,7 @@ import type { AdminModerationItem, AdminQualityState, AdminVerificationItem } fr
 export const adminVerificationQueue: AdminVerificationItem[] = [
   { id: "verification_org_clinic_12", entityType: "partner", entityId: "org_clinic_12", label: "Городская клиника №12", status: "pending", requestedAtLabel: "Сегодня, 09:12", note: "Проверка профиля организации и места." },
   { id: "verification_volunteer_max", entityType: "volunteer", entityId: "volunteer_max", label: "Максим Орлов", status: "pending", requestedAtLabel: "Сегодня, 08:40", note: "Профиль волонтёра и навыки." },
-  { id: "verification_author_lena", entityType: "author", entityId: "user_lena", label: "Елена Соколова", status: "pending", requestedAtLabel: "Вчера, 18:20", note: "Профиль автора community-публикаций." },
+  { id: "verification_author_lena", entityType: "author", entityId: "user_lena", label: "Елена Соколова", status: "pending", requestedAtLabel: "Вчера, 18:20", note: "Профиль автора публикаций сообщества." },
   { id: "verification_org_kontur", entityType: "partner", entityId: "org_kontur", label: "Центр «Контур»", status: "update_requested", requestedAtLabel: "12 сентября", note: "Нужно уточнить актуальность карточки." },
   { id: "verification_place_station", entityType: "place", entityId: "place_station_demo", label: "Транспортный узел «Центральный»", status: "pending", requestedAtLabel: "11 сентября", note: "Карточка требует повторного подтверждения." },
 ];

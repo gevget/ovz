@@ -116,9 +116,9 @@ const initialState = {
   appliedVacancyIds: [] as string[],
   resume: {
     userId: "user_anna",
-    title: "UX-дизайнер и исследователь",
+    title: "Дизайнер и исследователь пользовательского опыта",
     summary: "Помогаю превращать пользовательские задачи в понятные и доступные цифровые продукты.",
-    skills: ["UX-исследования", "Прототипирование", "Figma"],
+    skills: ["Исследования пользовательского опыта", "Прототипирование", "Макеты и прототипы"],
     experience: ["Волонтёрские исследования доступности цифровых сервисов"],
     preferredWorkMode: ["remote", "hybrid"],
     accessibilityNeeds: ["Гибкий темп общения", "Возможность удалённой работы"],
@@ -166,6 +166,38 @@ function migrateDemoState(persistedState: unknown): Partial<DemoState> {
   const persisted = persistedState as Partial<DemoState>;
   return {
     ...persisted,
+    organizations: persisted.organizations?.map((organization) => organization.id === "org_clinic_12"
+      ? { ...organization, contacts: { ...(organization.contacts ?? {}), email: "Связаться через форму" } }
+      : organization),
+    adminVerificationQueue: persisted.adminVerificationQueue?.map((item) => ({
+      ...item,
+      note: item.note?.replaceAll("community-публикаций", "публикаций сообщества"),
+    })),
+    vacancies: persisted.vacancies?.map((vacancy) => vacancy.id === "vacancy_ux"
+      ? { ...vacancy, title: "Младший исследователь пользовательского опыта", requirements: ["Интерес к исследованиям пользовательского опыта", "Умение структурировать наблюдения"], skills: ["Интервью", "Аналитика", "Исследование интерфейсов", "Макеты и прототипы"] }
+      : vacancy.id === "vacancy_ui"
+        ? { ...vacancy, title: "Дизайнер интерфейсов, стажёр", requirements: ["Работа с макетами", "Внимание к деталям"], skills: ["Макеты и прототипы", "Интерфейсы", "Прототипы"] }
+        : vacancy.id === "vacancy_qa"
+          ? { ...vacancy, skills: ["Тестирование", "Веб", "Чек-листы"] }
+          : vacancy.id === "vacancy_research"
+            ? { ...vacancy, title: "Ассистент исследований пользовательского опыта", skills: ["Исследования", "Рабочие заметки", "Интервью"] }
+            : vacancy.id === "vacancy_frontend"
+              ? { ...vacancy, title: "Разработчик интерфейсов", requirements: ["Библиотеки интерфейсов", "Типизация кода"], skills: ["Разработка интерфейсов", "Типизация кода"] }
+              : vacancy),
+    courses: persisted.courses?.map((course) => course.id === "course_figma"
+      ? { ...course, title: "Макеты и прототипы с нуля" }
+      : course.id === "course_research"
+        ? { ...course, title: "Основы исследований пользовательского опыта" }
+        : course),
+    resume: persisted.resume ? {
+      ...persisted.resume,
+      title: "Дизайнер и исследователь пользовательского опыта",
+      skills: persisted.resume.skills.map((skill) => skill === "Figma" ? "Макеты и прототипы" : skill === "UX-исследования" ? "Исследования пользовательского опыта" : skill),
+    } : persisted.resume,
+    notifications: persisted.notifications?.map((notification) => ({
+      ...notification,
+      title: notification.title.replaceAll("Дизайн и digital", "«Дизайн и цифровые технологии»"),
+    })),
     places: persisted.places?.map((place) => ({
       ...place,
       address: place.address.replaceAll("Демо-адрес", "Тестовый адрес"),
@@ -270,7 +302,7 @@ export const useDemoStore = create<DemoState>()(
             const name = volunteer?.displayName ?? "Волонтёр";
             return {
               helpRequests: state.helpRequests.map((item) => item.id === requestId ? { ...item, volunteerId, status: "accepted" } : item),
-              notifications: [...state.notifications, helpNotification(request, `${name} откликнулся на ваш запрос`, "Можно открыть статус запроса и связаться с волонтёром в demo.")],
+              notifications: [...state.notifications, helpNotification(request, `${name} откликнулся на ваш запрос`, "Можно открыть статус запроса и связаться с волонтёром в демонстрации.")],
             };
           }),
         setHelpRequestStatus: (requestId, status) =>
@@ -550,7 +582,7 @@ export const useDemoStore = create<DemoState>()(
         adminHistory: state.adminHistory,
         platformVerificationStatuses: state.platformVerificationStatuses,
       }),
-      version: 2,
+      version: 5,
       migrate: migrateDemoState,
     },
   ),

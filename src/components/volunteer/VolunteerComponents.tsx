@@ -19,7 +19,7 @@ export function VolunteerSummary({ available, onToggle, activeCount, matchingCou
 }
 
 export function ImpactSummary({ completedCount }: { completedCount: number }) {
-  return <Card className="p-4"><div className="flex items-center gap-2"><Users aria-hidden="true" className="h-5 w-5 text-primary" /><h2 className="font-bold text-ink">Ваш вклад</h2></div><div className="mt-4 grid grid-cols-3 gap-2 text-center"><div><p className="text-xl font-bold text-primary">{completedCount}</p><p className="text-xs text-muted">завершено</p></div><div><p className="text-xl font-bold text-primary">4,9</p><p className="text-xs text-muted">оценка demo</p></div><div><p className="text-xl font-bold text-primary">8 км</p><p className="text-xs text-muted">радиус</p></div></div></Card>;
+  return <Card className="p-4"><div className="flex items-center gap-2"><Users aria-hidden="true" className="h-5 w-5 text-primary" /><h2 className="font-bold text-ink">Ваш вклад</h2></div><div className="mt-4 grid grid-cols-3 gap-2 text-center"><div><p className="text-xl font-bold text-primary">{completedCount}</p><p className="text-xs text-muted">завершено</p></div><div><p className="text-xl font-bold text-primary">4,9</p><p className="text-xs text-muted">оценка демонстрации</p></div><div><p className="text-xl font-bold text-primary">8 км</p><p className="text-xs text-muted">радиус</p></div></div></Card>;
 }
 
 export function HelpRequestCard({ request, meta, onOpen, onAccept }: { request: HelpRequest; meta: HelpRequestMeta; onOpen: () => void; onAccept?: () => void }) {

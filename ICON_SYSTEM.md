@@ -43,3 +43,11 @@
 - Shared navigation, headers, modal close controls and role shells continue to use the `AppIcon` semantic map.
 - Compact role navigation labels were verified at 390px and inside the 430px phone boundary on a 1440px viewport; no label is clipped in the reviewed shells.
 - AppIcon inventory remains **77 mapped / 14 exercised by shared UI**. Unique content illustrations may still import Lucide directly; this is intentional and does not change the navigation icon contract.
+
+## Stage N.3 Final Closure Pass F–I — 2026-09-21
+
+- CUA просмотрел **31/31** уникальных визуальных шаблонов; icon roles проверялись вместе с навигацией, карточками, статусами, формами, картой, маршрутом, помощью, сообществом, волонтёрским, партнёрским и админским слоями.
+- Итоговый инвентарь: **77 semantic names mapped**, **14 names exercised by shared UI**, **60+ естественных content/icon roles visibly exercised** across the reviewed templates. Последнее число включает локальные content-иконки Lucide и не подменяет карту `AppIcon`.
+- Дополнительные иконки искусственно не добавлялись только ради счётчика: для новых ролей использовались существующие семантические имена (`MapPin`, `Route`, `ShieldCheck`, `CircleCheck`, `HandHelping`, `Building2`, `CalendarDays`, `MessageCircle`, `Filter`, `History` и др.).
+- Невизуальные идентификаторы в `AppIcon`, route IDs и enum values не отображаются как пользовательские подписи. Декоративные иконки остаются `aria-hidden`, смысловые действия имеют текст или accessible name.
+- Результат closure: **PASS**, известных P0-нарушений и проблем с активным состоянием навигации нет.

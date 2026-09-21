@@ -34,3 +34,18 @@ The landing keeps imagery in context: city/problem, map/place, route/transport, 
 - Landing imagery is distributed by meaning: entrance/problem, city context, venue/map, library/match, tram/journey, cafe/help, park/community and volunteer route/freshness/roles.
 - CUA runtime at 390px measured 9 rendered landing images with non-zero, section-specific bounds; no image caused horizontal overflow.
 - No new image generation was needed in this pass; no remote image dependency was introduced.
+
+## Stage N.3 Final Closure Pass F–I — 2026-09-21
+
+| Metric | Result |
+|---|---:|
+| Existing local assets audited | **8/8** |
+| New assets | **0** |
+| Landing rendered image placements | **9** non-zero placements across semantic sections |
+| Remote image dependencies | **0** |
+| Missing alt text in reviewed landing placements | **0** |
+| Visual templates with useful image treatment | Landing hero/sections, place context and route/help/freshness/role showcases |
+
+Решение не добавлять новые изображения принято после полного CUA-прохода: существующие WebP уже покрывают город, транспорт, место, помощь, сообщество, партнёрскую среду и роль волонтёра. Для событий, публикаций и community detail не добавлялась нерелевантная декоративная фотография: эти экраны используют text-first сценарии и реальные demo-данные без media-вложения. Это сохраняет смысловую иерархию и не возвращает прежнюю композицию «все фотографии в одном месте».
+
+Landing просмотрен полностью на 390px и 1440px. В секции «Город в контексте» при сверхбыстром холодном скролле зафиксирован краткий момент декодирования изображения; после штатной загрузки image bounds ненулевые, alt присутствует, overflow отсутствует. Это не является постоянным layout-дефектом и не создаёт P0.

@@ -68,7 +68,7 @@ export function UserAppShell() {
             </div>
           </div>
         </Card>
-        <p className="mt-5 text-center text-xs leading-5 text-muted">Сценарии и детальная карта подключаются следующим этапом поверх этого shell.</p>
+        <p className="mt-5 text-center text-xs leading-5 text-muted">Сценарии и детальная карта подключаются следующим этапом поверх этой оболочки.</p>
       </main>
     </div>
   );

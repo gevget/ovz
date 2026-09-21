@@ -49,7 +49,7 @@ export const organizations: Organization[] = [
     verified: true,
     description: "Демо-организация для сценариев карты и партнёрского кабинета.",
     city: "Москва",
-    contacts: { phone: "+7 000 000-00-00", email: "demo@clinic.local" },
+    contacts: { phone: "+7 000 000-00-00", email: "Связаться через форму" },
   },
   {
     id: "org_kontur",
@@ -133,7 +133,7 @@ export const vacancies: Vacancy[] = [
   {
     id: "vacancy_ux",
     organizationId: "org_kontur",
-    title: "Junior UX researcher",
+    title: "Младший исследователь пользовательского опыта",
     salaryRange: "Демо-диапазон",
     workMode: "hybrid",
     accessibilityConditions: [
@@ -142,7 +142,7 @@ export const vacancies: Vacancy[] = [
       "Возможность удалённой работы",
     ],
     description: "Участие в пользовательских исследованиях цифровых продуктов.",
-    requirements: ["Интерес к UX", "Умение структурировать наблюдения"],
+    requirements: ["Интерес к исследованиям пользовательского опыта", "Умение структурировать наблюдения"],
     verified: true,
     status: "open",
   },

@@ -185,3 +185,66 @@ The 125 route rows above retain the historical N.2 columns for traceability. For
 - CUA screenshot/AX reviewed templates: **10**; additional 20 routes were runtime-smoke only and are reported in `RESPONSIVE_ROUTE_AUDIT.md`.
 - Visual issue records closed in this pass: shared token drift, card nesting, excessive control motion, desktop phone-label clipping, social/volunteer active-tab states and route-shell spacing.
 - No new product routes, role logic, state machine or data contract introduced.
+
+## Stage N.3 — Final Closure Pass F–I — 2026-09-21
+
+Этот раздел имеет приоритет над более ранними сводками в этом файле. Предыдущая запись Pass G–I ошибочно указывала CUA coverage `10`; в финальном проходе через production-сборку фактически открыты и визуально просмотрены все **31/31** уникальных визуальных шаблонов. Новый Stage не создавался.
+
+### Обязательные итоговые метрики
+
+| Метрика | Результат |
+|---|---:|
+| Route entries | **125** |
+| Build-generated pages | **448** |
+| Unique visual templates | **31** |
+| CUA-reviewed templates | **31/31** |
+| Runtime-tested routes | **42** (включая основные, вторичные формы, модальные/активные состояния и админские представления) |
+| Runtime application errors | **0** |
+| Horizontal overflow | **0** на просмотренных маршрутах; `scrollWidth === clientWidth` |
+| PhoneFrame / Back / BottomNavigation | **0** нарушений в User/Volunteer/Partner; Admin — документированное desktop-исключение |
+
+### UNIQUE VISUAL TEMPLATE COVERAGE
+
+| Template | Representative route | CUA opened | Mobile reviewed | Desktop reviewed | Issues found | Issues fixed | Final status |
+|---|---|---:|---:|---:|---|---|---|
+| Landing | `/` | YES | YES | YES | Быстрый холодный скролл мог показать изображение до завершения декодирования | Проверены `priority`, локальные WebP, секционный ритм и полный скролл до подвала | PASS |
+| Demo Role Select | `/demo` | YES | YES | N/A — phone-first выбор роли | Нет | Единый выбор роли и общий shell подтверждены | PASS |
+| Demo Scenarios | `/demo/scenarios` | YES | YES | N/A — phone-first сценарии | Нет | Общий presentation shell и Back подтверждены | PASS |
+| User Home | `/demo/user/home` | YES | YES | N/A — mobile-first home | Нет | PhoneFrame, карточки и нижняя навигация подтверждены | PASS |
+| Map | `/demo/user/map` | YES | YES | N/A — карта внутри phone shell | Нет | Карта, выбранное место и нижняя панель проверены | PASS |
+| Map Search / Filters | `/demo/user/map/search`, `/demo/user/map/filters` | YES | YES | N/A — фильтр является transient overlay | Закрывающий control вместо отдельного заголовка фильтра | Зафиксировано как modal/back-equivalent исключение, overflow 0 | PASS |
+| Place | `/demo/user/map/place/place_clinic_12` | YES | YES | N/A — detail phone-first | Нет | Media → match → actions и Back подтверждены | PASS |
+| Accessibility | `/demo/user/map/place/place_clinic_12/accessibility` | YES | YES | N/A — form/detail phone-first | Нет | Статусы доступности и причины разделены | PASS |
+| Report | `/demo/user/map/place/place_clinic_12/report` | YES | YES | N/A — form phone-first | Нет | Форма и primary action подтверждены | PASS |
+| Route | `/demo/user/map/route/options` | YES | YES | N/A — route options phone-first | Нет | Рекомендованный маршрут и предупреждения читаются | PASS |
+| Journey | `/demo/user/map/journey` | YES | YES | N/A — journey phone-first | Нет | Шаги пути и прогресс подтверждены | PASS |
+| Help Home | `/demo/user/help` | YES | YES | N/A — help phone-first | Нет | Иерархия CTA и карточек подтверждена | PASS |
+| AI | `/demo/user/help/ai` | YES | YES | N/A — assistant flow phone-first | Нет | Quick replies, prompt и Back подтверждены | PASS |
+| Article | `/demo/user/help/articles/article_trip` | YES | YES | N/A — reading flow phone-first | Нет | Типографика, простое чтение и related links подтверждены | PASS |
+| Specialist | `/demo/user/help/specialists/specialist_anna` | YES | YES | N/A — profile detail phone-first | Нет | Профиль и action grouping подтверждены | PASS |
+| Organization | `/demo/user/help/organizations/org_clinic_12` | YES | YES | N/A — organization detail phone-first | Видимая категория `medicine` была англоязычным техническим значением | Локализация категории и демонстрационной подписи | PASS |
+| Help Request | `/demo/user/help/requests/help_001` | YES | YES | N/A — request detail phone-first | Нет | Статус, timeline и действие подтверждены | PASS |
+| Opportunities Home | `/demo/user/opportunities` | YES | YES | N/A — opportunity feed phone-first | Англоязычное название одной вакансии в данных | Название вакансии и связанные пользовательские подписи переведены | PASS |
+| Vacancy | `/demo/user/opportunities/vacancies/vacancy_ux` | YES | YES | N/A — opportunity detail phone-first | `Junior UX researcher`, `Figma` в demo-контенте | Переведены название и навыки в русские описательные значения | PASS |
+| Course | `/demo/user/opportunities/courses/course_design` | YES | YES | N/A — course detail phone-first | Нет | Формат, места и CTA подтверждены | PASS |
+| Event | `/demo/user/events/event_cinema` | YES | YES | N/A — event detail phone-first | Нет; текстовый формат соответствует данным события | Сохранён спокойный text-first detail без нерелевантной фотографии | PASS |
+| Club | `/demo/user/clubs/club_cinema` | YES | YES | N/A — club detail phone-first | Нет | Member/accessibility block и CTA подтверждены | PASS |
+| Feed / Post | `/demo/user/feed/post/post_experience` | YES | YES | N/A — social detail phone-first | Нет | Actions, tags и related card подтверждены | PASS |
+| Story | `/demo/user/feed/story/story_event_today` | YES | YES | N/A — overlay inside phone | Нет | Overlay, close, keyboard hint и containment подтверждены | PASS |
+| Community | `/demo/user/community/community_cinema` | YES | YES | N/A — community detail phone-first | Нет | Убрана потребность в нерелевантной фотографии; текстовая иерархия подтверждена | PASS |
+| Friends / User | `/demo/user/users/user_anna` | YES | YES | N/A — profile detail phone-first | Нет | Profile identity, tags и actions подтверждены | PASS |
+| Profile | `/demo/user/profile` | YES | YES | N/A — personal hub phone-first | Нет | Personal hub не выглядит CRM; sections и nav подтверждены | PASS |
+| Profile Form / Settings | `/demo/user/profile/accessibility/edit` | YES | YES | N/A — settings form phone-first | Нет | Группы полей, helper text и сохранение подтверждены | PASS |
+| Volunteer Home / Requests / Active | `/demo/volunteer/home`, `/demo/volunteer/requests/help_001`, `/demo/volunteer/requests/help_001/active` | YES | YES | N/A — role phone-first | Ранее проверена многострочная кнопка доступности | Кнопка статуса и active-tab исправлены; empty state проверен | PASS |
+| Partner Home | `/demo/partner/home` (дополнительно: organization/content/course form) | YES | YES | N/A — role phone-first | Нет | Dashboard, формы и partner nav подтверждены | PASS |
+| Admin | `/demo/admin/reports` (дополнительно: overview, analytics, help-requests, content, verification) | YES | YES | YES | Англоязычные служебные описания и desktop-table copy | Локализованы все найденные видимые подписи; desktop shell и table scroll подтверждены | PASS |
+
+**Итог: 31 / 31 визуальных шаблонов визуально просмотрены через CUA.**
+
+### Визуальные и языковые решения closure pass
+
+- Landing просмотрен полностью на мобильном 390px и desktop 1440px: hero, problem, visuals, map, match, journey, help, opportunities, community, freshness, roles, partner, investor, impact, demo, FAQ и footer.
+- Mobile-first contract подтверждён на User/Volunteer/Partner: PhoneFrame, Back, BottomNavigation, active tab, контентная прокрутка, overflow 0, overlay containment.
+- Англоязычные пользовательские подписи устранены в найденных визуальных шаблонах; технические route IDs, email-адреса, названия библиотек и типы в коде не являются пользовательским UI.
+- Изображения оставлены локальными и распределёнными по смысловым блокам; новые файлы не добавлялись, поскольку существующие 8 WebP покрывают нужные контексты.
+- Следующий Stage не назначается и самостоятельно не открывается.

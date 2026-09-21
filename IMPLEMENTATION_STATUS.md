@@ -1133,3 +1133,58 @@ Canonical-документация не назначает следующий St
 ### Следующий Stage
 
 **Не открывать новый Stage самостоятельно.** Stage N.3 Pass F–I завершён; следующий Stage не назначен canonical-документацией и должен быть определён отдельно пользователем/мастер-индексом.
+
+## Stage N.3 — Final Closure Pass F–I — 2026-09-21
+
+Статус: **закрыт в рамках существующего Stage N.3**. Новый Stage N.4/N.5 не создавался.
+
+### Точные метрики
+
+| Поле | Результат |
+|---|---:|
+| Route entries | **125** |
+| Build-generated pages | **448** |
+| Unique visual templates | **31** |
+| CUA-reviewed templates | **31/31** |
+| Runtime-tested routes | **42** |
+| Existing visual assets | **8** |
+| New assets | **0** |
+| AppIcon mapped / shared UI exercised | **77 / 14** |
+| Natural content/icon roles visibly exercised | **60+** |
+| Runtime application errors | **0** |
+| Overflow / unexpected PhoneFrame / missing Back / missing BottomNavigation | **0 / 0 / 0 / 0** |
+| Remaining P0 / P1 | **0 / 0** |
+
+### Что сделано в closure pass
+
+- Через production-сборку CUA фактически открыл и визуально просмотрел все 31 уникальный шаблон на 390px; проблемные компоновки дополнительно просмотрены на 1440px, landing полностью пройден на мобильном и desktop.
+- Проверены User/Volunteer/Partner PhoneFrame, Back, BottomNavigation, active tab, content scroll, overflow и containment overlay. Transient filter sheet признан modal/back-equivalent исключением с видимым close control.
+- Исправлены найденные видимые англоязычные подписи в админских описаниях, табах и служебных сущностях; категория `medicine`, `Junior UX researcher`, `Figma`, `digital`, `shell`, старый контакт `demo@clinic.local`, требование `UX`, подпись `оценка demo`, `community-публикаций` и `demo-данными` больше не появляются как пользовательский английский UI. Для уже открывавшихся браузеров добавлена миграция Zustand до версии 5, включая старую очередь верификации.
+- Повторно подтверждены распределённые локальные изображения лендинга: 8 файлов, 9 ненулевых landing placements, 0 remote URLs, 0 новых изображений.
+- Закреплены 30 weakest benchmarks с root cause/fix и 20 benchmark routes в `30_WEAKEST_VISUAL_SCREENS.md`.
+
+### Изменённые файлы в этом closure pass
+
+- UI/copy: `src/components/admin/AdminComponents.tsx`, `src/components/admin/AdminScreens.tsx`, `src/components/demo/UserAppShell.tsx`, `src/components/help/HelpComponents.tsx`, `src/components/help/HelpScreens.tsx`, `src/components/opportunities/OpportunityScreens.tsx`, `src/components/partner/PartnerScreens.tsx`, `src/components/social/SocialComponents.tsx`, `src/components/volunteer/VolunteerComponents.tsx`.
+- Demo data/localization: `31_SEED_DATA_CORE.ts`, `src/data/admin.ts`, `src/data/opportunities.ts`, `src/data/partner.ts`, `src/data/profile.ts`, `src/data/social.ts`, `src/lib/localizeVisibleCopy.ts`, `src/store/demoStore.ts`.
+- Reports: `FULL_VISUAL_ROUTE_AUDIT.md`, `30_WEAKEST_VISUAL_SCREENS.md`, `ICON_SYSTEM.md`, `VISUAL_ASSET_MANIFEST.md`, `IMPLEMENTATION_STATUS.md`.
+
+### Проверки
+
+- `npm run typecheck` — passed.
+- `npm run lint` — passed, 0 warnings/errors; остаётся штатное уведомление о deprecated `next lint`.
+- `npm run build` — passed, **448/448**.
+- `git diff --check` — passed; остаются только предупреждения Git о нормализации LF/CRLF.
+- Production server использовался на `http://localhost:3101` после clean build; dev overlay в финальный runtime-аудит не попал.
+- CUA runtime sweep — **42/42 маршрута**, `errors=0`, `overflow=0`, остаточные проверяемые англоязычные UI-строки `0`.
+- Узкая контрольная ширина 375px: `/`, `/demo/user/map`, `/demo/volunteer/home`, `/demo/partner/home` — `overflow=0`, `alerts=0`; landing и роли визуально открыты.
+
+### Найденные противоречия и ограничения
+
+- Сохранён существующий конфликт `06_DEMO_DATA.md` (`help_001: open`) против canonical `matching` в `20/22/31`; по `33_MASTER_INDEX_AND_CONFLICT_RULES.md` authoritative остаётся `matching`.
+- Ранние записи Pass G–I в `FULL_VISUAL_ROUTE_AUDIT.md` и `FINAL_QA_REPORT.md` содержали устаревшее значение CUA `10`; финальный closure раздел явно supersede-ит его значением **31/31**.
+- Полные Axe/Lighthouse, screen-reader, browser zoom 200% и точная матрица всех шести viewport-размеров не заявляются пройденными: доступный инструментальный путь позволил выполнить CUA/AX/screenshot audit и runtime checks в указанном объёме.
+
+### Следующий Stage
+
+Canonical-документация следующий Stage не назначает. Самостоятельный переход не выполнялся; следующий scope должен быть определён отдельно пользователем или мастер-индексом.
