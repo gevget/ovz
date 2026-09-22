@@ -6,6 +6,7 @@ import Link from "next/link";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { Button } from "@/components/ui/Button";
 import { cn } from "@/lib/cn";
+import { assetPath } from "@/lib/assetPath";
 
 const navigation = [
   { label: "Возможности", href: "#opportunities" },
@@ -97,7 +98,7 @@ export function LandingSection({ id, eyebrow, title, description, children, clas
 }
 
 export function LandingMedia({ src, alt, className, priority = false, sizes = "(max-width: 768px) 100vw, 50vw" }: { src: string; alt: string; className?: string; priority?: boolean; sizes?: string }) {
-  return <div className={cn("landing-media relative aspect-[4/3] overflow-hidden rounded-card bg-surface-soft", className)}><Image src={src} alt={alt} fill sizes={sizes} priority={priority} className="object-cover transition-transform duration-500 hover:scale-[1.02]" /></div>;
+  return <div className={cn("landing-media relative aspect-[4/3] overflow-hidden rounded-card bg-surface-soft", className)}><Image src={assetPath(src)} alt={alt} fill sizes={sizes} priority={priority} className="object-cover transition-transform duration-500 hover:scale-[1.02]" /></div>;
 }
 
 export function DemoCTA({ label = "Открыть демо", role, variant = "primary" }: { label?: string; role?: "user" | "volunteer" | "partner" | "admin"; variant?: "primary" | "secondary" }) {

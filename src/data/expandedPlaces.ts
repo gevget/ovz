@@ -24,7 +24,7 @@ export const expandedPlaces: Place[] = [
       assistanceAvailable: true,
     },
     rating: 4.5,
-    images: ["/assets/places/place-cafe-sever-cover.webp"],
+    images: ["/assets/landing/community-cafe.webp"],
     description: "Небольшое городское кафе с тихой зоной и входом со двора.",
   },
   {
@@ -50,7 +50,7 @@ export const expandedPlaces: Place[] = [
       assistanceAvailable: true,
     },
     rating: 4.8,
-    images: ["/assets/places/place-coworking-cover.webp"],
+    images: ["/assets/landing/partner-venue.webp"],
     description: "Рабочее пространство с переговорными и гибким форматом посещения.",
   },
   {
@@ -76,7 +76,7 @@ export const expandedPlaces: Place[] = [
       assistanceAvailable: true,
     },
     rating: 4.6,
-    images: ["/assets/places/place-theatre-cover.webp"],
+    images: ["/assets/landing/library-interior.webp"],
     description: "Культурная площадка; для некоторых залов требуется заранее уточнить вход.",
   },
   {
@@ -102,7 +102,7 @@ export const expandedPlaces: Place[] = [
       assistanceAvailable: "unknown",
     },
     rating: 4.1,
-    images: ["/assets/places/place-mfc-cover.webp"],
+    images: ["/assets/landing/partner-venue.webp"],
     description: "Демо-объект, по которому нужно обновить данные доступности.",
   },
   {
@@ -129,7 +129,7 @@ export const expandedPlaces: Place[] = [
       assistanceAvailable: true,
     },
     rating: 4.7,
-    images: ["/assets/places/place-school-kontur-cover.webp"],
+    images: ["/assets/landing/library-interior.webp"],
     description: "Учебный центр с курсами в гибридном и онлайн-формате.",
   },
   {
@@ -155,7 +155,7 @@ export const expandedPlaces: Place[] = [
       assistanceAvailable: true,
     },
     rating: 4.4,
-    images: ["/assets/places/place-sport-rhythm-cover.webp"],
+    images: ["/assets/landing/park-promenade.webp"],
     description: "Спортивный центр с отдельным безбарьерным входом.",
   },
   {
@@ -181,7 +181,7 @@ export const expandedPlaces: Place[] = [
       assistanceAvailable: "partial",
     },
     rating: 4.0,
-    images: ["/assets/places/place-supermarket-city-cover.webp"],
+    images: ["/assets/landing/partner-venue.webp"],
     description: "Информация о входе и парковке давно не подтверждалась.",
   },
   {
@@ -207,7 +207,7 @@ export const expandedPlaces: Place[] = [
       assistanceAvailable: true,
     },
     rating: 3.9,
-    images: ["/assets/places/place-station-demo-cover.webp"],
+    images: ["/assets/landing/tram-interior.webp"],
     description: "Временная проблема: лифт на западной платформе не работает.",
   },
   {
@@ -233,7 +233,7 @@ export const expandedPlaces: Place[] = [
       assistanceAvailable: true,
     },
     rating: 4.3,
-    images: ["/assets/places/place-pharmacy-24-cover.webp"],
+    images: ["/assets/landing/community-cafe.webp"],
     description: "Небольшая аптека с обслуживанием у входа при необходимости.",
   },
   {
@@ -259,7 +259,7 @@ export const expandedPlaces: Place[] = [
       assistanceAvailable: "unknown",
     },
     rating: 4.8,
-    images: ["/assets/places/place-park-bereg-cover.webp"],
+    images: ["/assets/landing/park-promenade.webp"],
     description: "Маршруты внутри парка могут меняться после дождя или мероприятий.",
   },
 ];

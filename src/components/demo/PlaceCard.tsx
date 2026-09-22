@@ -8,6 +8,7 @@ import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
 import { IconButton } from "@/components/ui/IconButton";
+import { assetPath } from "@/lib/assetPath";
 
 type PlaceCardProps = {
   place: Place;
@@ -45,7 +46,7 @@ export function PlaceCard({ place, match, variant = "list", selected = false, is
   return (
     <Card className={`overflow-hidden transition-shadow ${selected ? "border-primary ring-2 ring-primary/10" : ""}`}>
       <div className="relative h-28 overflow-hidden bg-surface-soft" role="img" aria-label={`Изображение: ${place.name}`}>
-        <Image src={imageSrc} alt="" fill sizes="(max-width: 768px) 100vw, 420px" className="object-cover transition-transform duration-500 hover:scale-[1.02]" />
+        <Image src={assetPath(imageSrc)} alt="" fill sizes="(max-width: 768px) 100vw, 420px" className="object-cover transition-transform duration-500 hover:scale-[1.02]" />
         <div className="absolute inset-0 bg-gradient-to-t from-ink/55 via-ink/5 to-transparent" />
         <div className="absolute bottom-3 left-3 z-10 flex items-center gap-2 rounded-full bg-white/90 px-2.5 py-1 text-xs font-semibold text-ink"><MapPin aria-hidden="true" className="h-3.5 w-3.5 text-primary" /> {getCategoryLabel(place.category)}</div>
         {onFavorite ? <IconButton aria-label={isFavorite ? `Убрать ${place.name} из избранного` : `Добавить ${place.name} в избранное`} className="absolute right-3 top-3 z-10 h-10 w-10 border-0 bg-white/90" onClick={() => onFavorite(place.id)}><Heart aria-hidden="true" className={`h-5 w-5 ${isFavorite ? "fill-danger text-danger" : "text-ink"}`} /></IconButton> : null}
